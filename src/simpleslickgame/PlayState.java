@@ -1,9 +1,7 @@
 package simpleslickgame;
 
-public class PlayState extends GameState { //test
-	// justin's test comment
-	// Kabeer's Comment
-	// Swag God's Comment 
+public class PlayState extends GameState { 
+	
 	public PlayState(Invoker i) {
 		super(i);
 	}
