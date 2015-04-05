@@ -11,6 +11,7 @@ import org.newdawn.slick.SlickException;
 
 public class Tester extends BasicGame
 { 
+	int totalms = 0;
 	Input input;
 	TVZShape l;
 	
@@ -29,6 +30,8 @@ public class Tester extends BasicGame
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
+		totalms+=i;
+		
 		if(input.isKeyPressed(Input.KEY_A)){
 			l.moveLeft();
 		}
@@ -51,6 +54,11 @@ public class Tester extends BasicGame
 		
 		if(input.isKeyPressed(Input.KEY_SPACE)){
 			
+		}
+		
+		if(totalms % 1000 == 0){
+			l.moveDown();
+			totalms = 0;
 		}
 	}
 
