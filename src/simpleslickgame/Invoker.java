@@ -16,7 +16,7 @@ public class Invoker extends BasicGame
 	GameState pauseState;
 	GameState lostState;
 	GameState currentState;
-	TVLShape l;
+	TVZShape l;
 	
 	public Invoker()
 	{
@@ -29,7 +29,7 @@ public class Invoker extends BasicGame
 	public void init(GameContainer gc) throws SlickException {
 		gc.setShowFPS(false);
 		input = gc.getInput();
-		l = new TVLShape(gc);
+		l = new TVZShape(gc);
 		
 	}
 

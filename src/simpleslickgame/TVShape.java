@@ -91,7 +91,7 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		blocks = newArray;
-		
+		/*
 		for(int i = 0; i < 4; i++){
 			for(int j = 0; j < 4; j++){
 				if(blocks[i][j] != null && blocks[i][j].visible){
@@ -103,6 +103,7 @@ public abstract class TVShape extends Observable{
 			System.out.println();
 		}
 		System.out.println();
+		*/
 	}
 	
 	// Moves the shape down one rown
