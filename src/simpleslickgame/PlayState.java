@@ -43,7 +43,13 @@ public class PlayState extends GameState {
 	}
 
 	@Override
-	void updateGameboard() {
+	void renderGameboard() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	void updateGameboard(int i) {
 		// TODO Auto-generated method stub
 		
 	}
