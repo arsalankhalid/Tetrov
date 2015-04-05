@@ -11,7 +11,7 @@ public class TVBlock extends Rectangle{
 	Graphics graphics;
 	GameContainer gc;
 	
-	public TVBlock(GameContainer gc, Grid grid) {
+	public TVBlock(GameContainer gc) {
 		super(0, 0, 50, 50);
 		
 		// Get height and width of canvas and determine block size
@@ -28,11 +28,10 @@ public class TVBlock extends Rectangle{
 		
 		this.gc = gc;
 		this.graphics= gc.getGraphics();
-		
 	}
 	
 	public void drawBlock(){
-		g.draw(this);
+		graphics.draw(this);
 	}
 	
 	public boolean checkCollision(TVBlock[] blocks){
