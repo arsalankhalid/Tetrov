@@ -25,16 +25,18 @@ public abstract class TVShape {
 		}
 	}
 	
+	// Rotates the shape counterclockwise
 	public void rotateLeft(){
 		
 	}
 	
+	// Rotates the shape clockwise
 	public void rotateRight(){
 		
 	}
 	
+	// Moves the shape down one rown
 	public void moveDown(){
-		// Move each block in blocks down
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
 				if(blocks[row][col] != null){
@@ -44,8 +46,8 @@ public abstract class TVShape {
 		}
 	}
 	
+	// Moves the shape left one column
 	public void moveLeft(){
-		// Move each block in blocks left
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
 				if(blocks[row][col] != null){
@@ -55,6 +57,7 @@ public abstract class TVShape {
 		}
 	}
 	
+	// Moves the shape right one column
 	public void moveRight(){
 		// Move each block in blocks right
 		for(int row = 0; row < blocks.length; row++){
