@@ -14,7 +14,8 @@ public abstract class GameState {
 	abstract void pressA();
 	abstract void pressB();
 	abstract void pressPause();
-	abstract void updateGameboard();
+	abstract void renderGameboard();
+	abstract void updateGameboard(int i);
 	
 	
 	

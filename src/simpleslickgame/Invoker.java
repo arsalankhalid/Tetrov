@@ -16,7 +16,6 @@ public class Invoker extends BasicGame
 	GameState pauseState;
 	GameState lostState;
 	GameState currentState;
-	TVZShape l;
 	
 	public Invoker()
 	{
@@ -29,26 +28,19 @@ public class Invoker extends BasicGame
 	public void init(GameContainer gc) throws SlickException {
 		gc.setShowFPS(false);
 		input = gc.getInput();
-		l = new TVZShape(gc);
 		
 	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		if(input.isKeyPressed(Input.KEY_A)){
+		if(input.isKeyPressed(Input.KEY_A))
 			currentState.pressLeft();
-			l.rotateRight();
-		}
 		
-		if(input.isKeyPressed(Input.KEY_D)){
+		if(input.isKeyPressed(Input.KEY_D))
 			currentState.pressRight();
-			l.rotateLeft();
-		}
 		
-		if(input.isKeyPressed(Input.KEY_S)){
+		if(input.isKeyPressed(Input.KEY_S))
 			currentState.pressDown();
-			l.moveDown();
-		}
 		
 		if(input.isKeyPressed(Input.KEY_LEFT))
 			currentState.pressA();
@@ -58,13 +50,14 @@ public class Invoker extends BasicGame
 		
 		if(input.isKeyPressed(Input.KEY_SPACE))
 			currentState.pressPause();
+		
+		currentState.updateGameboard(i);
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		
-		currentState.updateGameboard();
-		l.drawShape();
+		currentState.renderGameboard();
 	}
 	
 	public GameState getPlayState(){
