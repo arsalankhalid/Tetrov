@@ -57,7 +57,7 @@ public class Tester extends BasicGame
 		}
 		
 		if(totalms % 1000 == 0){
-			l.moveDown();
+			//l.moveDown();
 			totalms = 0;
 		}
 	}

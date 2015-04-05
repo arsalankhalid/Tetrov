@@ -1,6 +1,7 @@
 package simpleslickgame;
 
 import java.util.Observable;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 
@@ -9,6 +10,8 @@ public abstract class TVShape extends Observable{
 	TVBlock[][] blocks;
 	GameContainer gc;
 	Color colour;
+	int gridRow;
+	int gridCol;
 	
 	public TVShape(GameContainer gc, int[][] blocks, Color colour){
 		// Set necessary fields
@@ -48,6 +51,31 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		
+		// Determine grid row and column
+		boolean emptyFirstRow = true;
+		for(int i = 0; i < 4; i++){
+			if(this.blocks[0][i] != null)
+				emptyFirstRow = false;
+		}
+		
+		if(emptyFirstRow)
+			gridRow = 1;
+		else
+			gridRow = 0;
+		
+		int tempCol = 0;
+		
+		for(int i = 0; i < 4; i++){
+			if(this.blocks[gridRow][i] != null){
+				tempCol = i;
+				i = 4;
+			}
+		}
+		
+		gridCol = 4 + tempCol;
+		
+		System.out.println(gridRow);
+		System.out.println(gridCol);
 	}
 	
 	// Rotates the shape counterclockwise
@@ -90,7 +118,10 @@ public abstract class TVShape extends Observable{
 				
 			}
 		}
+		TVBlock[][] oldArray = blocks.clone();
 		blocks = newArray;
+		
+		fixGridLocation(oldArray);
 		/*
 		for(int i = 0; i < 4; i++){
 			for(int j = 0; j < 4; j++){
@@ -115,6 +146,9 @@ public abstract class TVShape extends Observable{
 				}
 			}
 		}
+		gridRow += 1;
+		System.out.println(gridRow);
+		System.out.println(gridCol);
 	}
 	
 	// Moves the shape left one column
@@ -126,6 +160,7 @@ public abstract class TVShape extends Observable{
 				}
 			}
 		}
+		gridCol -= 1;
 	}
 	
 	// Moves the shape right one column
@@ -137,6 +172,7 @@ public abstract class TVShape extends Observable{
 				}
 			}
 		}
+		gridCol += 1;
 	}
 	
 	public TVBlock[][] getBlocks(){
@@ -165,5 +201,35 @@ public abstract class TVShape extends Observable{
 				}
 			}
 		}
+	}
+	
+	private void fixGridLocation(TVBlock[][] oldblocks){
+		int[] difference = findDifference(oldblocks);
+		
+		gridRow += difference[0];
+		gridCol += difference[1];
+	}
+	
+	private int[] findDifference(TVBlock[][] oldblocks){
+		
+		int[] oldblockTopLeft = findTopLeft(oldblocks);
+		int oldRow = oldblockTopLeft[0];
+		int oldCol = oldblockTopLeft[1];
+		
+		int[] newblockTopLeft = findTopLeft(blocks);
+		int newRow = newblockTopLeft[0];
+		int newCol = newblockTopLeft[1];
+		
+		return new int[]{newRow-oldRow, newCol-oldCol};
+	}
+	
+	private int[] findTopLeft(TVBlock[][] blocks){
+		for(int r = 0; r < 4; r++){
+			for(int c = 0; c < 4 ; c++){
+				if(blocks[r][c] != null)
+					return new int[]{r, c};
+			}
+		}
+		return null;
 	}
 }
