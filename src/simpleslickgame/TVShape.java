@@ -61,7 +61,6 @@ public abstract class TVShape extends Observable{
 	
 	// Moves the shape right one column
 	public void moveRight(){
-		// Move each block in blocks right
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
 				if(blocks[row][col] != null){
@@ -75,6 +74,7 @@ public abstract class TVShape extends Observable{
 		return blocks;
 	}
 	
+	// Checks if any block collides with the grid
 	public boolean checkCollision(TVBlock[][] grid){
 		// For each block, check if it intersects with a block on the grid
 		for(int row = 0; row < blocks.length; row++){
