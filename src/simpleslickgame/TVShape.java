@@ -22,6 +22,24 @@ public abstract class TVShape extends Observable{
 			for(int col = 0; col < blocks[row].length; col++){
 				if(blocks[row][col] == 1){
 					this.blocks[row][col] = new TVBlock(gc);
+					TVBlock cur = this.blocks[row][col];
+					
+					for(int i = 0; i < 5; i++){
+						cur.moveRight();
+					}
+					
+					if(col == 0){
+						cur.moveLeft();
+					}
+					
+					if(col == 2){
+						cur.moveRight();
+					}
+					
+					for(int i = 0; i < row; i++){
+						cur.moveDown();
+					}
+					
 				}
 			}
 		}
@@ -86,5 +104,15 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		return false;
+	}
+	
+	public void drawShape(){
+		for(int row = 0; row < blocks.length; row++){
+			for(int col = 0; col < blocks[row].length; col++){
+				if(blocks[row][col] != null){
+					blocks[row][col].drawBlock();
+				}
+			}
+		}
 	}
 }

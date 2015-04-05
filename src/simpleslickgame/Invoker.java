@@ -16,7 +16,8 @@ public class Invoker extends BasicGame
 	GameState pauseState;
 	GameState lostState;
 	GameState currentState;
-
+	TVLShape l;
+	
 	public Invoker()
 	{
 		super("Tetrov");
@@ -28,6 +29,7 @@ public class Invoker extends BasicGame
 	public void init(GameContainer gc) throws SlickException {
 		gc.setShowFPS(false);
 		input = gc.getInput();
+		l = new TVLShape(gc);
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class Invoker extends BasicGame
 	{
 		
 		currentState.updateGameboard();
-		
+		l.drawShape();
 	}
 	
 	public GameState getPlayState(){
@@ -80,7 +82,7 @@ public class Invoker extends BasicGame
 		{
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new Invoker());
-			appgc.setDisplayMode(640, 480, false);
+			appgc.setDisplayMode(280, 640, false);
 			appgc.start();
 		}
 		catch (SlickException ex)
