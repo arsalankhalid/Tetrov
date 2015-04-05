@@ -30,26 +30,29 @@ public class Invoker extends BasicGame
 		gc.setShowFPS(false);
 		input = gc.getInput();
 		l = new TVLShape(gc);
+		
 	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-		if(input.isKeyDown(Input.KEY_A))
+		if(input.isKeyPressed(Input.KEY_A)){
 			currentState.pressLeft();
+			l.rotateRight();
+		}
 		
-		if(input.isKeyDown(Input.KEY_D))
+		if(input.isKeyPressed(Input.KEY_D))
 			currentState.pressRight();
 		
-		if(input.isKeyDown(Input.KEY_S))
+		if(input.isKeyPressed(Input.KEY_S))
 			currentState.pressDown();
 		
-		if(input.isKeyDown(Input.KEY_LEFT))
+		if(input.isKeyPressed(Input.KEY_LEFT))
 			currentState.pressA();
 		
-		if(input.isKeyDown(Input.KEY_RIGHT))
+		if(input.isKeyPressed(Input.KEY_RIGHT))
 			currentState.pressB();
 		
-		if(input.isKeyDown(Input.KEY_SPACE))
+		if(input.isKeyPressed(Input.KEY_SPACE))
 			currentState.pressPause();
 	}
 

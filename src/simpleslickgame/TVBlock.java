@@ -1,5 +1,6 @@
 package simpleslickgame;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
@@ -10,8 +11,9 @@ public class TVBlock extends Rectangle{
 
 	Graphics graphics;
 	GameContainer gc;
+	Color colour;
 	
-	public TVBlock(GameContainer gc) {
+	public TVBlock(GameContainer gc, Color colour) {
 		super(0, 0, 50, 50);
 		
 		// Get height and width of canvas and determine block size
@@ -28,10 +30,14 @@ public class TVBlock extends Rectangle{
 		
 		this.gc = gc;
 		this.graphics= gc.getGraphics();
+		this.colour = colour;
 	}
 	
 	// Draws the block on the canvas
 	public void drawBlock(){
+		graphics.setColor(colour);
+		graphics.fill(this);
+		graphics.setColor(Color.white);
 		graphics.draw(this);
 	}
 	
