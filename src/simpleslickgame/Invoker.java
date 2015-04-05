@@ -16,6 +16,7 @@ public class Invoker extends BasicGame
 	GameState pauseState;
 	GameState lostState;
 	GameState currentState;
+	Block a = new Block();
 	Block b = new Block();
 	
 	public Invoker()
@@ -29,6 +30,7 @@ public class Invoker extends BasicGame
 	public void init(GameContainer gc) throws SlickException {
 		gc.setShowFPS(false);
 		input = gc.getInput();
+		b.moveDown();
 	}
 
 	@Override
@@ -56,8 +58,12 @@ public class Invoker extends BasicGame
 	{
 		
 		currentState.updateGameboard();
+		g.draw(a);
 		g.draw(b);
-		b.moveDown();
+		
+		if(a.intersects(b))
+			System.out.println("A intersects B!");
+		
 	}
 	
 	public GameState getPlayState(){
