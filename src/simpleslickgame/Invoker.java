@@ -53,7 +53,9 @@ public class Invoker extends BasicGame
 
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
+		Block b = new Block();
 		currentState.updateGameboard();
+		g.draw(b);
 	}
 	
 	public GameState getPlayState(){
