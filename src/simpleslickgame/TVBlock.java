@@ -30,17 +30,34 @@ public class TVBlock extends Rectangle{
 		this.graphics= gc.getGraphics();
 	}
 	
+	// Draws the block on the canvas
 	public void drawBlock(){
 		graphics.draw(this);
 	}
 	
+	// Checks if this block collides with any in the array given
 	public boolean checkCollision(TVBlock[] blocks){
 		for(int i = 0; i < blocks.length; i++){
 			if (blocks[i].intersects(this)){
 				return true;
 			}
 		}
-		
 		return false;
 	}
+	
+	// Moves a block down in increments of its own height
+	public void moveDown(){
+		this.setY(this.getY() + this.getHeight());
+	}
+	
+	// Moves a block right in increments of its own width
+	public void moveRight(){
+		this.setX(this.getX() + this.getWidth());
+	}
+	
+	// Moves a block left in increments of its own width
+	public void moveLeft(){
+		this.setX(this.getX() - this.getWidth());
+	}
+	
 }
