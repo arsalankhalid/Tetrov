@@ -1,28 +1,27 @@
 package simpleslickgame;
 
-import java.util.Arrays;
 import java.util.Observable;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Transform;
 
 public abstract class TVShape extends Observable{
 
 	TVBlock[][] blocks;
 	GameContainer gc;
+	Color colour;
 	
 	public TVShape(GameContainer gc, int[][] blocks, Color colour){
 		// Set necessary fields
 		this.blocks = new TVBlock[blocks.length][blocks[0].length];
 		this.gc = gc;
+		this.colour = colour;
 		
 		// Initialize the blocks array based on the int array sent in
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
 				if(blocks[row][col] == 1){
 					this.blocks[row][col] = new TVBlock(gc, colour);
+				
 					TVBlock cur = this.blocks[row][col];
 					
 					for(int i = 0; i < 5; i++){
@@ -37,18 +36,25 @@ public abstract class TVShape extends Observable{
 						cur.moveRight();
 					}
 					
+					if(col == 3){
+						cur.moveRight();
+						cur.moveRight();
+					}
+					
 					for(int i = 0; i < row; i++){
 						cur.moveDown();
 					}
-					
 				}
 			}
 		}
+		
 	}
 	
 	// Rotates the shape counterclockwise
 	public void rotateLeft(){
-		
+		rotateRight();
+		rotateRight();
+		rotateRight();
 	}
 	
 	// Rotates the shape clockwise
@@ -58,49 +64,45 @@ public abstract class TVShape extends Observable{
 		for(int row = 0; row < 4; row++) {
 			for(int col = 0; col < 4; col++) {
 				newArray[row][col] = blocks[4 - col - 1][row];
+				
+				if(blocks[4 - col - 1][row] != null){
+					int moveX = col - row;
+					int moveY = row - (4 - col - 1);
+					
+					if(moveX > 0){
+						for(int i = 0; i < moveX; i++)
+							newArray[row][col].moveRight();
+					}
+					else if(moveX < 0){
+						for(int i = moveX; i < 0; i++)
+							newArray[row][col].moveLeft();
+					}
+					
+					if(moveY > 0){
+						for(int i = 0; i < moveY; i++)
+							newArray[row][col].moveDown();
+					}
+					else if(moveY < 0){
+						for(int i = moveY; i < 0; i++)
+							newArray[row][col].moveUp();
+					}
+				}
+				
 			}
 		}
 		blocks = newArray;
 		
-		// Rotate blocks on screen
-		float topX = 0;
-		float topY = 0;
-		for(int row = 0; row < 4; row++){
-			for(int col = 0; col < 4; col++){
-				if(blocks[row][col] != null){
-					topX = blocks[row][col].getX();
-					topY = blocks[row][col].getY();
-					row = 4;
-					col = 4;
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				if(blocks[i][j] != null && blocks[i][j].visible){
+					System.out.print("1");
 				}
+				else
+					System.out.print("0");
 			}
+			System.out.println();
 		}
-		
-		System.out.println(Arrays.deepToString(blocks));
-		
-		Rectangle temp = new Rectangle(topX, topY, 0, 0);
-		
-
-		
-		for(int row = 0; row < 4; row++){
-			for(int col = 0; col < 4; col++){
-				if(blocks[row][col] != null){
-					temp.union(blocks[row][col]);
-				}
-			}
-		}
-		
-		gc.getGraphics().setColor(Color.white);
-		gc.getGraphics().fill(temp);
-		
-		for(int row = 0; row < 4; row++){
-			for(int col = 0; col < 4; col++){
-				if(blocks[row][col] != null){
-					blocks[row][col].transform(Transform.createRotateTransform( 90, temp.getCenterX(), temp.getCenterY()));
-				}
-			}
-		}
-		
+		System.out.println();
 	}
 	
 	// Moves the shape down one rown

@@ -40,11 +40,15 @@ public class Invoker extends BasicGame
 			l.rotateRight();
 		}
 		
-		if(input.isKeyPressed(Input.KEY_D))
+		if(input.isKeyPressed(Input.KEY_D)){
 			currentState.pressRight();
+			l.rotateLeft();
+		}
 		
-		if(input.isKeyPressed(Input.KEY_S))
+		if(input.isKeyPressed(Input.KEY_S)){
 			currentState.pressDown();
+			l.moveDown();
+		}
 		
 		if(input.isKeyPressed(Input.KEY_LEFT))
 			currentState.pressA();
