@@ -1,6 +1,6 @@
 package simpleslickgame;
 
-public class PlayState extends GameState {
+public class PlayState extends GameState { //test
 
 	public PlayState(Invoker i) {
 		super(i);
