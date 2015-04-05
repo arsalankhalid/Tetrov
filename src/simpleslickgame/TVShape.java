@@ -1,9 +1,11 @@
 package simpleslickgame;
 
+import java.util.Observable;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 
-public abstract class TVShape {
+public abstract class TVShape extends Observable{
 
 	TVBlock[][] blocks;
 	GameContainer gc;
@@ -71,5 +73,18 @@ public abstract class TVShape {
 	
 	public TVBlock[][] getBlocks(){
 		return blocks;
+	}
+	
+	public boolean checkCollision(TVBlock[][] grid){
+		// For each block, check if it intersects with a block on the grid
+		for(int row = 0; row < blocks.length; row++){
+			for(int col = 0; col < blocks[row].length; col++){
+				if(blocks[row][col] != null && blocks[row][col].checkCollision(grid)){
+					//Notifying the observer goes here
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

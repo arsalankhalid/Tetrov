@@ -36,10 +36,12 @@ public class TVBlock extends Rectangle{
 	}
 	
 	// Checks if this block collides with any in the array given
-	public boolean checkCollision(TVBlock[] blocks){
-		for(int i = 0; i < blocks.length; i++){
-			if (blocks[i].intersects(this)){
-				return true;
+	public boolean checkCollision(TVBlock[][] grid){
+		for(int row = 0; row < grid.length; row++){
+			for(int col = 0; col < grid[row].length; col++){
+				if(grid[row][col] != null && grid[row][col].intersects(this)){
+					return true;
+				}
 			}
 		}
 		return false;
