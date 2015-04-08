@@ -13,7 +13,7 @@ public class Tester extends BasicGame
 { 
 	int totalms = 0;
 	Input input;
-	TVZShape l;
+	TVLShape l;
 	
 	public Tester()
 	{
@@ -24,7 +24,7 @@ public class Tester extends BasicGame
 	public void init(GameContainer gc) throws SlickException {
 		gc.setShowFPS(false);
 		input = gc.getInput();
-		l = new TVZShape(gc);
+		l = new TVLShape(gc);
 		
 	}
 
