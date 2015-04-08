@@ -8,14 +8,14 @@ import org.newdawn.slick.GameContainer;
 
 public abstract class TVShape extends Observable{
 
-	TVBlock[][] blocks;
-	GameContainer gc;
-	Color colour;
+	protected TVBlock[][] blocks;
+	protected GameContainer gc;
+	protected Color colour;
 	
-	int gridLeftRow;
-	int gridLeftCol;
-	int gridRightRow;
-	int gridRightCol;
+	protected int gridLeftRow;
+	protected int gridLeftCol;
+	protected int gridRightRow;
+	protected int gridRightCol;
 	
 	public TVShape(GameContainer gc, int[][] blocks, Color colour){
 		// Set necessary fields
@@ -157,83 +157,7 @@ public abstract class TVShape extends Observable{
 		displayBlocks();
 	}
 	
-	private void rotateLeft(boolean flag){
-		if(!flag)
-			return;
-		
-		// Rotate blocks in array
-		TVBlock[][] newArray = new TVBlock[4][4];
-		for(int row = 0; row < 4; row++) {
-			for(int col = 0; col < 4; col++) {
-				newArray[row][col] = blocks[col][4 - row - 1];
-				
-				if(blocks[col][4 - row - 1] != null){
-					int moveX = col - (4 - row - 1);
-					int moveY = row - col;
-					
-					if(moveX > 0){
-						for(int i = 0; i < moveX; i++)
-							newArray[row][col].moveRight();
-					}
-					else if(moveX < 0){
-						for(int i = moveX; i < 0; i++)
-							newArray[row][col].moveLeft();
-					}
-					
-					if(moveY > 0){
-						for(int i = 0; i < moveY; i++)
-							newArray[row][col].moveDown();
-					}
-					else if(moveY < 0){
-						for(int i = moveY; i < 0; i++)
-							newArray[row][col].moveUp();
-					}
-				}
-				
-			}
-		}
-		blocks = newArray;
-		displayBlocks();
-	}
-	
-	private void rotateRight(boolean flag){
-		if(!flag)
-			return;
-		// Rotate blocks in array
-		TVBlock[][] newArray = new TVBlock[4][4];
-		for(int row = 0; row < 4; row++) {
-			for(int col = 0; col < 4; col++) {
-				newArray[row][col] = blocks[4 - col - 1][row];
-				
-				if(blocks[4 - col - 1][row] != null){
-					int moveX = col - row;
-					int moveY = row - (4 - col - 1);
-					
-					if(moveX > 0){
-						for(int i = 0; i < moveX; i++)
-							newArray[row][col].moveRight();
-					}
-					else if(moveX < 0){
-						for(int i = moveX; i < 0; i++)
-							newArray[row][col].moveLeft();
-					}
-					
-					if(moveY > 0){
-						for(int i = 0; i < moveY; i++)
-							newArray[row][col].moveDown();
-					}
-					else if(moveY < 0){
-						for(int i = moveY; i < 0; i++)
-							newArray[row][col].moveUp();
-					}
-				}
-				
-			}
-		}
-		blocks = newArray;
-		displayBlocks();
-	}
-	
+	// Returns the location of the top left block in the blocks array
 	public int[] getTopLeftBlock(){
 		for(int r = 0; r < 4; r++){
 			for(int c = 0; c < 4; c++){
@@ -294,6 +218,7 @@ public abstract class TVShape extends Observable{
 		this.displayGridValues();
 	}
 	
+	// Returns the current block array
 	public TVBlock[][] getBlocks(){
 		return blocks;
 	}
@@ -315,6 +240,7 @@ public abstract class TVShape extends Observable{
 		return false;
 	}
 	
+	// Draws the shape on the board
 	public void drawShape(){
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
@@ -325,6 +251,7 @@ public abstract class TVShape extends Observable{
 		}
 	}
 	
+	// Fixes grid locations after rotating
 	private boolean fixGridLocation(TVBlock[][] oldblocks){
 		
 		int[] leftDifference = findLeftDifference(oldblocks);
@@ -352,6 +279,7 @@ public abstract class TVShape extends Observable{
 		return true;
 	}
 	
+	// For fixing grid location
 	private int[] findLeftDifference(TVBlock[][] oldblocks){
 		
 		int[] oldblockBottomLeft = findBottomLeft(oldblocks);
@@ -365,6 +293,7 @@ public abstract class TVShape extends Observable{
 		return new int[]{newRow-oldRow, newCol-oldCol};
 	}
 	
+	// For fixing grid location
 	private int[] findRightDifference(TVBlock[][] oldblocks){
 		
 		int[] oldblockRight = findBottomRight(oldblocks);
@@ -378,6 +307,7 @@ public abstract class TVShape extends Observable{
 		return new int[]{newRow-oldRow, newCol-oldCol};
 	}
 	
+	// For fixing grid location
 	private int[] findBottomLeft(TVBlock[][] blocks){
 		for(int c = 0; c < 4; c++){
 			for(int r = 3; r >= 0 ; r--){
@@ -389,6 +319,7 @@ public abstract class TVShape extends Observable{
 		return null;
 	}
 	
+	// For fixing grid location
 	private int[] findBottomRight(TVBlock[][] blocks){
 		for(int c = 3; c >= 0; c--){
 			for(int r = 3; r >= 0 ; r--){
@@ -400,6 +331,7 @@ public abstract class TVShape extends Observable{
 		return null;
 	}
 	
+	// Undoes an invalid roation
 	private void undoRotation (boolean rotatedRight){
 		if(rotatedRight)
 			rotateLeft(true);
@@ -407,6 +339,86 @@ public abstract class TVShape extends Observable{
 			rotateRight(true);
 	}
 	
+	// Rotates left without influencing grid location
+	private void rotateLeft(boolean flag){
+		if(!flag)
+			return;
+		
+		// Rotate blocks in array
+		TVBlock[][] newArray = new TVBlock[4][4];
+		for(int row = 0; row < 4; row++) {
+			for(int col = 0; col < 4; col++) {
+				newArray[row][col] = blocks[col][4 - row - 1];
+				
+				if(blocks[col][4 - row - 1] != null){
+					int moveX = col - (4 - row - 1);
+					int moveY = row - col;
+					
+					if(moveX > 0){
+						for(int i = 0; i < moveX; i++)
+							newArray[row][col].moveRight();
+					}
+					else if(moveX < 0){
+						for(int i = moveX; i < 0; i++)
+							newArray[row][col].moveLeft();
+					}
+					
+					if(moveY > 0){
+						for(int i = 0; i < moveY; i++)
+							newArray[row][col].moveDown();
+					}
+					else if(moveY < 0){
+						for(int i = moveY; i < 0; i++)
+							newArray[row][col].moveUp();
+					}
+				}
+				
+			}
+		}
+		blocks = newArray;
+		displayBlocks();
+	}
+	
+	// Rotates right without influencing grid location
+	private void rotateRight(boolean flag){
+		if(!flag)
+			return;
+		// Rotate blocks in array
+		TVBlock[][] newArray = new TVBlock[4][4];
+		for(int row = 0; row < 4; row++) {
+			for(int col = 0; col < 4; col++) {
+				newArray[row][col] = blocks[4 - col - 1][row];
+				
+				if(blocks[4 - col - 1][row] != null){
+					int moveX = col - row;
+					int moveY = row - (4 - col - 1);
+					
+					if(moveX > 0){
+						for(int i = 0; i < moveX; i++)
+							newArray[row][col].moveRight();
+					}
+					else if(moveX < 0){
+						for(int i = moveX; i < 0; i++)
+							newArray[row][col].moveLeft();
+					}
+					
+					if(moveY > 0){
+						for(int i = 0; i < moveY; i++)
+							newArray[row][col].moveDown();
+					}
+					else if(moveY < 0){
+						for(int i = moveY; i < 0; i++)
+							newArray[row][col].moveUp();
+					}
+				}
+				
+			}
+		}
+		blocks = newArray;
+		displayBlocks();
+	}
+	
+	// Displays grid values (for testing)
 	private void displayGridValues(){
 		System.out.println("Left row: " + gridLeftRow);
 		System.out.println("Left col: " + gridLeftCol);
@@ -415,6 +427,7 @@ public abstract class TVShape extends Observable{
 		System.out.println();
 	}
 	
+	// Displays block array (for testing)
 	private void displayBlocks(){
 		for(int i = 0; i < 4; i++){
 			for(int j = 0; j < 4; j++){
