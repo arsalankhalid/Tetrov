@@ -234,6 +234,16 @@ public abstract class TVShape extends Observable{
 		displayBlocks();
 	}
 	
+	public int[] getTopLeftBlock(){
+		for(int r = 0; r < 4; r++){
+			for(int c = 0; c < 4; c++){
+				if(blocks[r][c] != null)
+					return new int[]{r, c};
+			}
+		}
+		return null;
+	}
+	
 	// Moves the shape down one rown
 	public void moveDown(){
 		
