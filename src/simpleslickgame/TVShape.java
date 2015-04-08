@@ -1,5 +1,6 @@
 package simpleslickgame;
 
+import java.util.Arrays;
 import java.util.Observable;
 
 import org.newdawn.slick.Color;
@@ -73,9 +74,45 @@ public abstract class TVShape extends Observable{
 	
 	// Rotates the shape counterclockwise
 	public void rotateLeft(){
-		rotateRight();
-		rotateRight();
-		rotateRight();
+		// Rotate blocks in array
+		TVBlock[][] newArray = new TVBlock[4][4];
+		for(int row = 0; row < 4; row++) {
+			for(int col = 0; col < 4; col++) {
+				newArray[row][col] = blocks[col][4 - row - 1];
+				
+				if(blocks[col][4 - row - 1] != null){
+					int moveX = col - (4 - row - 1);
+					int moveY = row - col;
+					
+					if(moveX > 0){
+						for(int i = 0; i < moveX; i++)
+							newArray[row][col].moveRight();
+					}
+					else if(moveX < 0){
+						for(int i = moveX; i < 0; i++)
+							newArray[row][col].moveLeft();
+					}
+					
+					if(moveY > 0){
+						for(int i = 0; i < moveY; i++)
+							newArray[row][col].moveDown();
+					}
+					else if(moveY < 0){
+						for(int i = moveY; i < 0; i++)
+							newArray[row][col].moveUp();
+					}
+				}
+				
+			}
+		}
+		TVBlock[][] oldArray = blocks.clone();
+		blocks = newArray;
+		
+		if(!fixGridLocation(oldArray)){
+			undoRotation(oldArray, false);
+		}
+		displayGridValues();
+		
 	}
 	
 	// Rotates the shape clockwise
@@ -113,8 +150,10 @@ public abstract class TVShape extends Observable{
 		}
 		TVBlock[][] oldArray = blocks.clone();
 		blocks = newArray;
-		
-		fixGridLocation(oldArray);
+		if(!fixGridLocation(oldArray)){
+			undoRotation(oldArray, true);
+		}
+		displayGridValues();
 	}
 	
 	// Moves the shape down one rown
@@ -198,18 +237,32 @@ public abstract class TVShape extends Observable{
 		}
 	}
 	
-	private void fixGridLocation(TVBlock[][] oldblocks){
-		int[] topDifference = findLeftDifference(oldblocks);
+	private boolean fixGridLocation(TVBlock[][] oldblocks){
 		
-		gridLeftRow += topDifference[0];
-		gridLeftCol += topDifference[1];
+		int[] leftDifference = findLeftDifference(oldblocks);
+		int[] rightDifference = findRightDifference(oldblocks);
 		
-		int[] botDifference = findRightDifference(oldblocks);
+		System.out.println(Arrays.toString(leftDifference));
+		System.out.println(Arrays.toString(rightDifference));
 		
-		gridRightRow += botDifference[0];
-		gridRightCol += botDifference[1];
+		this.displayGridValues();
+		if(gridLeftRow + leftDifference[0] > 21 || gridLeftCol + leftDifference[1] > 9){
+			return false;
+		}
 		
 		
+		
+		if(gridRightRow + rightDifference[0] > 21 || gridRightCol + rightDifference[1] > 9){
+			return false;
+		}
+		
+		gridLeftRow += leftDifference[0];
+		gridLeftCol += leftDifference[1];
+		
+		gridRightRow += rightDifference[0];
+		gridRightCol += rightDifference[1];
+		
+		return true;
 	}
 	
 	private int[] findLeftDifference(TVBlock[][] oldblocks){
@@ -227,36 +280,22 @@ public abstract class TVShape extends Observable{
 	
 	private int[] findRightDifference(TVBlock[][] oldblocks){
 		
-		int[] oldblockTopLeft = findBottomRight(oldblocks);
-		int oldRow = oldblockTopLeft[0];
-		int oldCol = oldblockTopLeft[1];
+		int[] oldblockRight = findBottomRight(oldblocks);
+		int oldRow = oldblockRight[0];
+		int oldCol = oldblockRight[1];
 		
-		int[] newblockTopLeft = findBottomRight(blocks);
-		int newRow = newblockTopLeft[0];
-		int newCol = newblockTopLeft[1];
+		int[] newblockRight = findBottomRight(blocks);
+		int newRow = newblockRight[0];
+		int newCol = newblockRight[1];
 		
 		return new int[]{newRow-oldRow, newCol-oldCol};
 	}
 	
 	private int[] findBottomLeft(TVBlock[][] blocks){
-		for(int r = 3; r >= 0; r--){
-			for(int c = 0; c < 4 ; c++){
+		for(int c = 0; c < 4; c++){
+			for(int r = 3; r >= 0 ; r--){
 				if(blocks[r][c] != null){
-					//Check if the selected block is alone on its line
-					boolean alone = true;
-					for(int i = 0; i < 4; i++){
-						if (i != c && blocks[r][i] != null)
-							alone = false;
-					}
-					
-					//If its alone and on the left side, or not alone return
-					if(alone){
-						if(c == 0 || c == 1)
-							return new int[]{r, c};
-
-					} else {
-						return new int[]{r, c};
-					}
+					return new int[]{r, c};
 				}
 			}
 		}
@@ -264,37 +303,28 @@ public abstract class TVShape extends Observable{
 	}
 	
 	private int[] findBottomRight(TVBlock[][] blocks){
-		for(int r = 3; r >= 0; r--){
-			for(int c = 3; c >= 0 ; c--){
+		for(int c = 3; c >= 0; c--){
+			for(int r = 3; r >= 0 ; r--){
 				if(blocks[r][c] != null){
-					//Check if the selected block is alone on its line
-					boolean alone = true;
-					for(int i = 0; i < 4; i++){
-						if (i != c && blocks[r][i] != null)
-							alone = false;
-					}
-					
-					//If its alone and on the right side, or not alone return
-					if(alone){
-						if(c == 2 || c == 3)
-							return new int[]{r, c};
-
-					} else {
-						return new int[]{r, c};
-					}
+					return new int[]{r, c};
 				}
 			}
 		}
 		return null;
 	}
 	
+	private void undoRotation(TVBlock[][] oldArray, boolean rotatedRight){
+		if(rotatedRight)
+			rotateLeft();
+		else
+			rotateRight();
+	}
+	
 	private void displayGridValues(){
-		System.out.println("Top values");
-		System.out.println(gridLeftRow);
-		System.out.println(gridLeftCol);
-		System.out.println("Bot values");
-		System.out.println(gridRightRow);
-		System.out.println(gridRightCol);
+		System.out.println("Left row: " + gridLeftRow);
+		System.out.println("Left col: " + gridLeftCol);
+		System.out.println("Right row: " + gridRightRow);
+		System.out.println("Right col: " + gridRightCol);
 		System.out.println();
 	}
 }
