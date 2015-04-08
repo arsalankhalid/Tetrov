@@ -111,8 +111,8 @@ public abstract class TVShape extends Observable{
 		if(!fixGridLocation(oldArray)){
 			undoRotation(false);
 		}
-		displayGridValues();
-		
+		//displayGridValues();
+		displayBlocks();
 	}
 	
 	// Rotates the shape clockwise
@@ -153,7 +153,8 @@ public abstract class TVShape extends Observable{
 		if(!fixGridLocation(oldArray)){
 			undoRotation(true);
 		}
-		displayGridValues();
+		//displayGridValues();
+		displayBlocks();
 	}
 	
 	private void rotateLeft(boolean flag){
@@ -191,8 +192,8 @@ public abstract class TVShape extends Observable{
 				
 			}
 		}
-		TVBlock[][] oldArray = blocks.clone();
 		blocks = newArray;
+		displayBlocks();
 	}
 	
 	private void rotateRight(boolean flag){
@@ -229,8 +230,8 @@ public abstract class TVShape extends Observable{
 				
 			}
 		}
-		TVBlock[][] oldArray = blocks.clone();
 		blocks = newArray;
+		displayBlocks();
 	}
 	
 	// Moves the shape down one rown
@@ -402,5 +403,17 @@ public abstract class TVShape extends Observable{
 		System.out.println("Right row: " + gridRightRow);
 		System.out.println("Right col: " + gridRightCol);
 		System.out.println();
+	}
+	
+	private void displayBlocks(){
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				if(blocks[i][j] != null)
+					System.out.print("1");
+				else
+					System.out.print("0");
+			}
+			System.out.println();
+		}
 	}
 }
