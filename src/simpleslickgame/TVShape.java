@@ -11,11 +11,11 @@ public abstract class TVShape extends Observable{
 	TVBlock[][] blocks;
 	GameContainer gc;
 	Color colour;
+	
 	int gridLeftRow;
 	int gridLeftCol;
 	int gridRightRow;
 	int gridRightCol;
-	
 	
 	public TVShape(GameContainer gc, int[][] blocks, Color colour){
 		// Set necessary fields
@@ -109,7 +109,7 @@ public abstract class TVShape extends Observable{
 		blocks = newArray;
 		
 		if(!fixGridLocation(oldArray)){
-			undoRotation(oldArray, false);
+			undoRotation(false);
 		}
 		displayGridValues();
 		
@@ -151,9 +151,86 @@ public abstract class TVShape extends Observable{
 		TVBlock[][] oldArray = blocks.clone();
 		blocks = newArray;
 		if(!fixGridLocation(oldArray)){
-			undoRotation(oldArray, true);
+			undoRotation(true);
 		}
 		displayGridValues();
+	}
+	
+	private void rotateLeft(boolean flag){
+		if(!flag)
+			return;
+		
+		// Rotate blocks in array
+		TVBlock[][] newArray = new TVBlock[4][4];
+		for(int row = 0; row < 4; row++) {
+			for(int col = 0; col < 4; col++) {
+				newArray[row][col] = blocks[col][4 - row - 1];
+				
+				if(blocks[col][4 - row - 1] != null){
+					int moveX = col - (4 - row - 1);
+					int moveY = row - col;
+					
+					if(moveX > 0){
+						for(int i = 0; i < moveX; i++)
+							newArray[row][col].moveRight();
+					}
+					else if(moveX < 0){
+						for(int i = moveX; i < 0; i++)
+							newArray[row][col].moveLeft();
+					}
+					
+					if(moveY > 0){
+						for(int i = 0; i < moveY; i++)
+							newArray[row][col].moveDown();
+					}
+					else if(moveY < 0){
+						for(int i = moveY; i < 0; i++)
+							newArray[row][col].moveUp();
+					}
+				}
+				
+			}
+		}
+		TVBlock[][] oldArray = blocks.clone();
+		blocks = newArray;
+	}
+	
+	private void rotateRight(boolean flag){
+		if(!flag)
+			return;
+		// Rotate blocks in array
+		TVBlock[][] newArray = new TVBlock[4][4];
+		for(int row = 0; row < 4; row++) {
+			for(int col = 0; col < 4; col++) {
+				newArray[row][col] = blocks[4 - col - 1][row];
+				
+				if(blocks[4 - col - 1][row] != null){
+					int moveX = col - row;
+					int moveY = row - (4 - col - 1);
+					
+					if(moveX > 0){
+						for(int i = 0; i < moveX; i++)
+							newArray[row][col].moveRight();
+					}
+					else if(moveX < 0){
+						for(int i = moveX; i < 0; i++)
+							newArray[row][col].moveLeft();
+					}
+					
+					if(moveY > 0){
+						for(int i = 0; i < moveY; i++)
+							newArray[row][col].moveDown();
+					}
+					else if(moveY < 0){
+						for(int i = moveY; i < 0; i++)
+							newArray[row][col].moveUp();
+					}
+				}
+				
+			}
+		}
+		TVBlock[][] oldArray = blocks.clone();
+		blocks = newArray;
 	}
 	
 	// Moves the shape down one rown
@@ -246,13 +323,12 @@ public abstract class TVShape extends Observable{
 		System.out.println(Arrays.toString(rightDifference));
 		
 		this.displayGridValues();
-		if(gridLeftRow + leftDifference[0] > 21 || gridLeftCol + leftDifference[1] > 9){
+		
+		if(gridLeftRow + leftDifference[0] > 21 || gridLeftCol + leftDifference[1] > 9 || gridLeftCol + leftDifference[1] < 0){
 			return false;
 		}
 		
-		
-		
-		if(gridRightRow + rightDifference[0] > 21 || gridRightCol + rightDifference[1] > 9){
+		if(gridRightRow + rightDifference[0] > 21 || gridRightCol + rightDifference[1] > 9 || gridRightCol + rightDifference[1] < 0){
 			return false;
 		}
 		
@@ -313,11 +389,11 @@ public abstract class TVShape extends Observable{
 		return null;
 	}
 	
-	private void undoRotation(TVBlock[][] oldArray, boolean rotatedRight){
+	private void undoRotation (boolean rotatedRight){
 		if(rotatedRight)
-			rotateLeft();
+			rotateLeft(true);
 		else
-			rotateRight();
+			rotateRight(true);
 	}
 	
 	private void displayGridValues(){
