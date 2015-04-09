@@ -12,18 +12,21 @@ public class TVPlayState extends TVGameState implements Observer {
 	GameContainer gameContainer;
 	TVTick tick;
 	TVInvoker invoker;
+	TVShape currShape;
 	
 	public TVPlayState(TVInvoker i) {
 		super(i);
-		this.invoker = i;
+		this.grid = new TVGrid();
 		this.gameContainer = i.gc;
 		this.tick = new TVTick(100, 1000);
-		this.grid = new TVGrid();
+		this.invoker = i;
+		
+		
 	} 
 
 	@Override
 	void pressLeft() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
