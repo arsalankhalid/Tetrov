@@ -1,5 +1,7 @@
 package simpleslickgame;
 
+import java.util.Random;
+
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 /*
@@ -45,14 +47,19 @@ public class TVShapeFactory {
 	 * method creates a random shape using tetris 
 	 * Implements bust head tetris algorithm 
 	 */
-	public TVShape createRandomShape() {
+	public TVShape getRandomShape(GameContainer gc) {
 		//create array holding possible choices 
-		int[] tiny_bag = new int[7];
-		for(int i=0;i<7;i++) {
+		TVShape[] shapes = new TVShape[7];
+		shapes[0] = new TVIShape(gc);
+		shapes[1] = new TVJShape(gc);
+		shapes[2] = new TVLShape(gc);
+		shapes[3] = new TVOShape(gc);
+		shapes[4] = new TVTShape(gc);
+		shapes[5] = new TVZShape(gc);
+		shapes[6] = new TVSShape(gc);
 		
-		}
-		
-		return tvShape;
+		int index = new Random().nextInt(shapes.length);
+		return shapes[index];
 	}
 
 	
