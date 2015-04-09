@@ -1,4 +1,5 @@
 package simpleslickgame;
+import simpleslickgame.TVTick;
 
 public abstract class TVGameState {
 
@@ -15,8 +16,5 @@ public abstract class TVGameState {
 	abstract void pressB();
 	abstract void pressPause();
 	abstract void renderGameboard();
-	abstract void updateGameboard(int i);
-	
-	
-	
+	abstract void updateGameboard(TVTick step);
 }

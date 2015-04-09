@@ -1,4 +1,5 @@
 package simpleslickgame;
+import simpleslickgame.TVTick;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ public class TVInvoker extends BasicGame
 	TVGameState pauseState;
 	TVGameState lostState;
 	TVGameState currentState;
+	GameContainer gc;
 	
 	public TVInvoker()
 	{
@@ -29,6 +31,8 @@ public class TVInvoker extends BasicGame
 		gc.setShowFPS(false);
 		input = gc.getInput();
 		
+		this.gc = gc;
+		
 	}
 
 	@Override
@@ -37,7 +41,7 @@ public class TVInvoker extends BasicGame
 			currentState.pressLeft();
 		
 		if(input.isKeyPressed(Input.KEY_D))
-			currentState.pressRight();
+			currentState.pressRight(); 
 		
 		if(input.isKeyPressed(Input.KEY_S))
 			currentState.pressDown();
@@ -51,7 +55,7 @@ public class TVInvoker extends BasicGame
 		if(input.isKeyPressed(Input.KEY_SPACE))
 			currentState.pressPause();
 		
-		currentState.updateGameboard(i);
+		currentState.updateGameboard(new TVTick(i, 1000));
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException

@@ -1,10 +1,25 @@
 package simpleslickgame;
 
-public class TVPlayState extends TVGameState { 
+import java.util.Observable;
+import java.util.Observer;
+
+import org.newdawn.slick.GameContainer;
+
+import simpleslickgame.TVTick;
+public class TVPlayState extends TVGameState implements Observer { 
+	
+	TVGrid grid;
+	GameContainer gameContainer;
+	TVTick tick;
+	TVInvoker invoker;
 	
 	public TVPlayState(TVInvoker i) {
 		super(i);
-	}
+		this.invoker = i;
+		this.gameContainer = i.gc;
+		this.tick = new TVTick(100, 1000);
+		this.grid = new TVGrid();
+	} 
 
 	@Override
 	void pressLeft() {
@@ -49,7 +64,14 @@ public class TVPlayState extends TVGameState {
 	}
 
 	@Override
-	void updateGameboard(int i) {
+	void updateGameboard(TVTick step) { 
+		// number of milliseconds %1000 move down
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		
 	}
