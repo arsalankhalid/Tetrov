@@ -13,7 +13,7 @@ public class TVPlayState extends TVGameState implements Observer {
 	TVTick tick;
 	TVInvoker invoker;
 	
-	public TVPlayState(TVInvoker i, TVGrid grid, TVTick tick) {
+	public TVPlayState(TVInvoker i) {
 		super(i);
 		this.invoker = i;
 		this.gameContainer = i.gc;
