@@ -85,6 +85,7 @@ public class TVPlayState extends TVGameState implements Observer {
 		// TODO Auto-generated method stub
 		// ccast o to tvshape
 		// this update is for collision
+		this.grid.isCollided((TVShape)o);
 		
 		
 	}
