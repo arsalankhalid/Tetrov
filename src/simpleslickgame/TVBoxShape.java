@@ -3,9 +3,9 @@ package simpleslickgame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 
-public class TVBoxShape extends TVShape{
+public class TVOShape extends TVShape{
 
-	public TVBoxShape(GameContainer gc) {
+	public TVOShape(GameContainer gc) {
 		super(
 				gc, 
 				
