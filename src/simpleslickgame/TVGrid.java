@@ -16,28 +16,113 @@ public class TVGrid{
 	}
 	
 	public void addShapetoTop(TVShape shape){
-		
+
 		int[] botRightBlock = shape.findBottomRight(shape.blocks);
+		
+		int[] lowestBlock = new int[2];
+		
 		int[] botRightCoord = shape.getBottomRightCoord();
 		TVBlock[][] blocks = shape.getBlocks();
+		
+		for(int r = 3; r >= 0; r--){
+			for(int c = 3; c >= 0; c--){
+				if(blocks[r][c] != null){
+					lowestBlock[0] = r;
+					lowestBlock[1] = c;
+					r = -1;
+					c = -1;
+				}
+			}
+		}
+		
+		System.out.println(botRightBlock[0] + "," + botRightBlock[1]);
+		System.out.println(lowestBlock[0] + "," + lowestBlock[1]);
+		
+		if (botRightBlock[0] == lowestBlock[0] && botRightBlock[1] == lowestBlock[1]){
+		}
+		else{
+			botRightBlock[0] = lowestBlock[0];
+		}
+		
 		int i = botRightBlock[0];
 		int j = botRightBlock[1];
+	
 		currentShape.clear();
 		for(int r = botRightCoord[0]; r >= botRightCoord[0] - 4; r--){
+			//j = getRightMostBlock(blocks, i);
 			for(int c = botRightCoord[1]; c >= botRightCoord[1] - 4; c--){
 				if(i >= 0 && j >= 0 && blocks[i][j] != null){
 					gameboard[r][c] = blocks[i][j];
 					currentShape.add(new Integer[]{r, c});
+					System.out.println("i: " + i + " j: " + j);
 				}
-				System.out.println("i: " + i + " j: " + j);
 				j--;
 			}
 			i--;
 			j = botRightBlock[1];
 		}
 		displayBlock();
+		
+
 	}
 	
+	public void updateCurrentShape(TVShape shape){
+		for(Iterator<Integer[]> it = currentShape.iterator(); it.hasNext();){
+			Integer[] cur = it.next();
+			gameboard[cur[0]][cur[1]] = null;
+		}
+		
+		int[] botRightBlock = shape.findBottomRight(shape.blocks);
+		
+		int[] lowestBlock = new int[2];
+		
+		int[] botRightCoord = shape.getBottomRightCoord();
+		TVBlock[][] blocks = shape.getBlocks();
+		
+		for(int r = 3; r >= 0; r--){
+			for(int c = 3; c >= 0; c--){
+				if(blocks[r][c] != null){
+					lowestBlock[0] = r;
+					lowestBlock[1] = c;
+					r = -1;
+					c = -1;
+				}
+			}
+		}
+		
+		System.out.println(botRightBlock[0] + "," + botRightBlock[1]);
+		System.out.println(lowestBlock[0] + "," + lowestBlock[1]);
+		
+		if (botRightBlock[0] == lowestBlock[0] && botRightBlock[1] == lowestBlock[1]){
+		}
+		else{
+			botRightBlock[0] = lowestBlock[0];
+		}
+		
+		int i = botRightBlock[0];
+		int j = botRightBlock[1];
+	
+		currentShape.clear();
+		for(int r = botRightCoord[0]; r >= botRightCoord[0] - 4; r--){
+			//j = getRightMostBlock(blocks, i);
+			for(int c = botRightCoord[1]; c >= botRightCoord[1] - 4; c--){
+				if(i >= 0 && j >= 0 && blocks[i][j] != null){
+					gameboard[r][c] = blocks[i][j];
+					currentShape.add(new Integer[]{r, c});
+					System.out.println("i: " + i + " j: " + j);
+				}
+				j--;
+			}
+			i--;
+			j = botRightBlock[1];
+		}
+		displayBlock();
+		
+
+		
+	}
+	
+	/*
 	public void updateCurrentShape(TVShape shape){
 		for(Iterator<Integer[]> it = currentShape.iterator(); it.hasNext();){
 			Integer[] cur = it.next();
@@ -55,13 +140,27 @@ public class TVGrid{
 					gameboard[r][c] = blocks[i][j];
 					currentShape.add(new Integer[]{r, c});
 				}
-				System.out.println("i: " + i + " j: " + j);
+				//System.out.println("i: " + i + " j: " + j);
 				j--;
 			}
 			i--;
 			j = botRightBlock[1];
 		}
 		displayBlock();
+	}
+	*/
+	
+	private int getRightMostBlock(TVBlock[][] blocks, int i){
+		if(i < 0)
+			return -1;
+		
+		for(int c = 3; c >= 0; c--){
+			if(blocks[i][c] != null){
+				return c;
+			}
+		}
+		
+		return -1;
 	}
 	
 	public void removeBlock(){}
@@ -78,18 +177,21 @@ public class TVGrid{
 	
 	public void displayBlock()
 	{
-		for(int e = 0; e < 22; e ++)
-		{
-		   for(int t =0; t < 10; t++)
-		 	{
-				if(gameboard[e][t] != null)
-				{
-					System.out.print("1");
-				}else{
-					System.out.print("0");
+		boolean display = true;
+		if(display){
+			for(int e = 0; e < 22; e ++)
+			{
+			   for(int t =0; t < 10; t++)
+			 	{
+					if(gameboard[e][t] != null)
+					{
+						System.out.print("1");
+					}else{
+						System.out.print("0");
+					}
 				}
+			   System.out.println();
 			}
-		   System.out.println();
 		}
 	}
 }
