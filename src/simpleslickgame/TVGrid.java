@@ -68,13 +68,21 @@ public class TVGrid{
 		gameboard[row][col] = null;
 	}
 	
-	public void moveRowDown(){}
-	
-	public void moveBlockDown(TVBlock block){
+	public void moveRowDown(int row){
+		for(int i=0 ; i < 10; i ++)
+		{
+		  gameboard[row][i].moveDown();
+		}
 		
 	}
 	
-	public void isCollided(TVShape shape){}
+	public void moveBlockDown(TVBlock block){
+		block.moveDown();
+	}
+	
+	public void isCollided(TVShape shape){
+		
+	}
 	
 	public void drawBlocks(){
 		
