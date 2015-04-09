@@ -240,6 +240,14 @@ public abstract class TVShape extends Observable{
 		return false;
 	}
 	
+	public int[] getBottomLeftCoord(){
+		return new int[]{this.gridLeftRow, this.gridLeftCol};
+	}
+	
+	public int[] getBottomRightCoord(){
+		return new int[]{this.gridRightRow, this.gridRightCol};
+	}
+	
 	// Draws the shape on the board
 	public void drawShape(){
 		for(int row = 0; row < blocks.length; row++){
@@ -308,7 +316,7 @@ public abstract class TVShape extends Observable{
 	}
 	
 	// For fixing grid location
-	private int[] findBottomLeft(TVBlock[][] blocks){
+	public int[] findBottomLeft(TVBlock[][] blocks){
 		for(int c = 0; c < 4; c++){
 			for(int r = 3; r >= 0 ; r--){
 				if(blocks[r][c] != null){
@@ -320,7 +328,7 @@ public abstract class TVShape extends Observable{
 	}
 	
 	// For fixing grid location
-	private int[] findBottomRight(TVBlock[][] blocks){
+	public int[] findBottomRight(TVBlock[][] blocks){
 		for(int c = 3; c >= 0; c--){
 			for(int r = 3; r >= 0 ; r--){
 				if(blocks[r][c] != null){
