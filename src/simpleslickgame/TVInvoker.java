@@ -22,16 +22,17 @@ public class TVInvoker extends BasicGame
 	public TVInvoker()
 	{
 		super("Tetrov");
-		playState = new TVPlayState(this);
-		currentState = playState;	
+
 	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		gc.setShowFPS(false);
 		input = gc.getInput();
-		
 		this.gc = gc;
+		playState = new TVPlayState(this);
+		currentState = playState;	
+		
 		
 	}
 

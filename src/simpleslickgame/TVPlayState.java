@@ -22,7 +22,7 @@ public class TVPlayState extends TVGameState implements Observer {
 		this.tick = new TVTick(1000);
 		this.grid = new TVGrid();
 		this.shapeFactory = new TVShapeFactory(gc);
-		this.currShape = shapeFactory.createShape("TVOshape");
+		this.currShape = shapeFactory.getRandomShape();
 		currShape.addObserver(this);
 		//create factory and use factory to create cuurShape
 		// since shape is observable, shape.addObserver and pass this
