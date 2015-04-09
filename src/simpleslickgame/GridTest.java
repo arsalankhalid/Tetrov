@@ -11,17 +11,19 @@ public class GridTest extends BasicGame {
 		// TODO Auto-generated constructor stub
 	}
 
-	protected GameContainer gc;
-    public TVGrid grid = new TVGrid();
-	TVShape shape = new TVLShape(gc);
-
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public TVGrid grid = new TVGrid();
+	public TVShape shape;
+	
 	@Override
-	public void init(GameContainer arg0) throws SlickException {
+	public void init(GameContainer gc) throws SlickException {
+	    grid = new TVGrid();
+		shape = new TVLShape(gc);
+		grid.addShapetoTop(shape);
 		grid.displayBlock();
 		
 	}
@@ -29,7 +31,6 @@ public class GridTest extends BasicGame {
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		shape.drawShape();
-		
 		
 	}
 	
