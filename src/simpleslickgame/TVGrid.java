@@ -41,7 +41,9 @@ public class TVGrid{
 	
 	public void isCollided(TVShape shape){}
 	
-	public void drawblocks(){}
+	public void drawBlocks(){
+		
+	}
 	
 	public void displayBlock()
 	{
