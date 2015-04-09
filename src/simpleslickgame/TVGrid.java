@@ -30,7 +30,6 @@ public class TVGrid{
 	}
 	
 	public void updateCurrentShape(TVShape shape){
-		
 	}
 	
 	public void removeBlock(){}
