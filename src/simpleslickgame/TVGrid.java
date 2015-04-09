@@ -39,8 +39,6 @@ public class TVGrid{
 	}
 	
 	public void updateCurrentShape(TVShape shape){
-<<<<<<< HEAD
-=======
 		for(Iterator<Integer[]> it = currentShape.iterator(); it.hasNext();){
 			Integer[] cur = it.next();
 			gameboard[cur[0]][cur[1]] = null;
@@ -64,7 +62,6 @@ public class TVGrid{
 			j = botRightBlock[1];
 		}
 		displayBlock();
->>>>>>> 83405386effedcaa1b0cfaf9faeecb0f5ed7e06b
 	}
 	
 	public void removeBlock(){}
