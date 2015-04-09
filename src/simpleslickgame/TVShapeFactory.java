@@ -5,6 +5,8 @@ import org.newdawn.slick.GameContainer;
 /*
  * class responsible for creating unique Tetris object's 
  * implements concrete methods
+ * Class expects a GameContainer to handle the game environment and create
+ * shape for environment 
  */
 public class TVShapeFactory {
 
@@ -41,10 +43,14 @@ public class TVShapeFactory {
 	
 	/*
 	 * method creates a random shape using tetris 
-	 * shape probability algorithm
+	 * Implements bust head tetris algorithm 
 	 */
 	public TVShape createRandomShape() {
-	
+		//create array holding possible choices 
+		int[] tiny_bag = new int[7];
+		for(int i=0;i<7;i++) {
+		
+		}
 		
 		return tvShape;
 	}
