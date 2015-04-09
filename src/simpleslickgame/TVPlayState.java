@@ -17,7 +17,7 @@ public class TVPlayState extends TVGameState implements Observer {
 		super(i);
 		this.invoker = i;
 		this.gameContainer = i.gc;
-		this.tick = new TVTick(100, 1000);
+		this.tick = new TVTick(1000);
 		this.grid = new TVGrid();
 	} 
 
@@ -64,10 +64,12 @@ public class TVPlayState extends TVGameState implements Observer {
 	}
 
 	@Override
-	void updateGameboard(TVTick step) { 
+	void updateGameboard(int i) { 
 		// number of milliseconds %1000 move down
 		// TODO Auto-generated method stub
-		
+		if(tick.update(i)){
+			// do logic that needs to happen
+		}
 	}
 
 	@Override
