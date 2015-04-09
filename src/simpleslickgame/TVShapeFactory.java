@@ -2,7 +2,10 @@ package simpleslickgame;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
-
+/*
+ * class responsible for creating unique tetris object's 
+ * implements concrete methods
+ */
 public class TVShapeFactory {
 
 	
