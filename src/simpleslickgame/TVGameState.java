@@ -1,4 +1,6 @@
 package simpleslickgame;
+import java.util.Observable;
+
 import simpleslickgame.TVTick;
 
 public abstract class TVGameState {
@@ -16,5 +18,10 @@ public abstract class TVGameState {
 	abstract void pressB();
 	abstract void pressPause();
 	abstract void renderGameboard();
-	abstract void updateGameboard(TVTick step);
+	abstract void updateGameboard(int i);
+
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
 }

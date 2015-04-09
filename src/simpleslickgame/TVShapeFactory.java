@@ -22,9 +22,28 @@ public class TVShapeFactory {
 		else if (shape=="TVZShape") {
 			tvShape = new TVZShape(gc);
 		}
+		else if (shape=="TVJShape") {
+			tvShape = new TVJShape(gc);
+		}
+		else if (shape=="TVSShape") {
+			tvShape = new TVSShape(gc);
+		}
+		else if (shape=="TVTShape") {
+			tvShape = new TVTShape(gc);
+		}
 		else {
 			System.out.println("Error: invalid type of shape");
 		}
+		return tvShape;
+	}
+	
+	/*
+	 * method creates a random shape using tetris 
+	 * shape probability algorithm
+	 */
+	public TVShape createRandomShape() {
+	
+		
 		return tvShape;
 	}
 
