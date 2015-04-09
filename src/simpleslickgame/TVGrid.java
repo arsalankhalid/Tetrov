@@ -30,7 +30,7 @@ public class TVGrid{
 		}
 	}
 	
-	public void updateCurrentShape(TVShape tvshape){}
+	public void updateCurrentShape(TVShape shape){}
 	
 	public void removeBlock(){}
 	
@@ -38,7 +38,9 @@ public class TVGrid{
 	
 	public void moveBlockDown(TVBlock tvblock){}
 	
-	private void displayBlock()
+	public void isCollided(TVShape shape){}
+	
+	public void displayBlock()
 	{
 		for(int e = 0; e < 4; e ++)
 		{
