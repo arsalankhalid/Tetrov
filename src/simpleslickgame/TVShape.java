@@ -1,6 +1,5 @@
 package simpleslickgame;
 
-import java.util.Arrays;
 import java.util.Observable;
 
 import org.newdawn.slick.Color;
@@ -256,7 +255,7 @@ public abstract class TVShape extends Observable{
 		*/
 		
 		if(gridLeftRow > gridRightRow){
-			return new int[]{this.gridLeftRow, this.gridLeftCol};
+			return new int[]{this.gridLeftRow, this.gridRightCol};
 		}
 		else
 			return new int[]{this.gridRightRow, this.gridRightCol};

@@ -1,5 +1,4 @@
 package simpleslickgame;
-import simpleslickgame.TVTick;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

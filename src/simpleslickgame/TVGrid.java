@@ -150,19 +150,6 @@ public class TVGrid{
 	}
 	*/
 	
-	private int getRightMostBlock(TVBlock[][] blocks, int i){
-		if(i < 0)
-			return -1;
-		
-		for(int c = 3; c >= 0; c--){
-			if(blocks[i][c] != null){
-				return c;
-			}
-		}
-		
-		return -1;
-	}
-	
 	public void removeBlock(int row, int col){
 		gameboard[row][col] = null;
 	}
