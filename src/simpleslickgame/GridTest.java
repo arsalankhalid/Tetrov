@@ -1,5 +1,9 @@
 package simpleslickgame;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,17 +15,19 @@ public class GridTest extends BasicGame {
 		// TODO Auto-generated constructor stub
 	}
 
-	protected GameContainer gc;
-    public TVGrid grid = new TVGrid();
-	TVShape shape = new TVLShape(gc);
-
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public TVGrid grid = new TVGrid();
+	public TVShape shape;
+	
 	@Override
-	public void init(GameContainer arg0) throws SlickException {
+	public void init(GameContainer gc) throws SlickException {
+	    grid = new TVGrid();
+		shape = new TVLShape(gc);
+		grid.addShapetoTop(shape);
 		grid.displayBlock();
 		
 	}
@@ -30,8 +36,21 @@ public class GridTest extends BasicGame {
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		shape.drawShape();
 		
-		
 	}
 	
+	public static void main(String[] args)
+	{
+		try
+		{
+			AppGameContainer appgc;
+			appgc = new AppGameContainer(new GridTest("GridTest"));
+			appgc.setDisplayMode(280, 640, false);
+			appgc.start();
+		}
+		catch (SlickException ex)
+		{
+			Logger.getLogger(TVInvoker.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 }
 
