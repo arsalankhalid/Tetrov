@@ -55,7 +55,7 @@ public class TVInvoker extends BasicGame
 		if(input.isKeyPressed(Input.KEY_SPACE))
 			currentState.pressPause();
 		
-		currentState.updateGameboard(new TVTick(i, 1000));
+		currentState.updateGameboard(i);
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException
