@@ -15,6 +15,10 @@ public class TVShapeFactory {
 	protected TVShape tvShape = null;
 	protected GameContainer gc;
 	
+	TVShapeFactory(GameContainer gc) {
+		this.gc = gc;
+	}
+	
 	public TVShape createShape(String shape) {
 		if (shape=="TVIShape") {
 			tvShape = new TVIShape(gc);
