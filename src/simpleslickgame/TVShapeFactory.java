@@ -51,7 +51,7 @@ public class TVShapeFactory {
 	 * method creates a random shape using tetris 
 	 * Implements bust head tetris algorithm 
 	 */
-	public TVShape getRandomShape(GameContainer gc) {
+	public TVShape getRandomShape() {
 		//create array holding possible choices 
 		TVShape[] shapes = new TVShape[7];
 		shapes[0] = new TVIShape(gc);
