@@ -22,6 +22,9 @@ public class TVShapeFactory {
 		else if (shape=="TVZShape") {
 			tvShape = new TVZShape(gc);
 		}
+		else {
+			System.out.println("Error: invalid type of shape");
+		}
 		return tvShape;
 	}
 
