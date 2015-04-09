@@ -163,13 +163,25 @@ public class TVGrid{
 		return -1;
 	}
 	
-	public void removeBlock(){}
+	public void removeBlock(int row, int col){
+		gameboard[row][col] = null;
+	}
 	
-	public void moveRowDown(){}
+	public void moveRowDown(int row){
+		for(int i=0 ; i < 10; i ++)
+		{
+		  gameboard[row][i].moveDown();
+		}
+		
+	}
 	
-	public void moveBlockDown(TVBlock tvblock){}
+	public void moveBlockDown(TVBlock block){
+		block.moveDown();
+	}
 	
-	public void isCollided(TVShape shape){}
+	public void isCollided(TVShape shape){
+		
+	}
 	
 	public void drawBlocks(){
 		
