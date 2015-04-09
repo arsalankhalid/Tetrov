@@ -64,11 +64,15 @@ public class TVGrid{
 		displayBlock();
 	}
 	
-	public void removeBlock(){}
+	public void removeBlock(int row, int col){
+		gameboard[row][col] = null;
+	}
 	
 	public void moveRowDown(){}
 	
-	public void moveBlockDown(TVBlock tvblock){}
+	public void moveBlockDown(TVBlock block){
+		
+	}
 	
 	public void isCollided(TVShape shape){}
 	
