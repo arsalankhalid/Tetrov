@@ -28,7 +28,9 @@ public class GridTest extends BasicGame {
 	    grid = new TVGrid();
 		shape = new TVLShape(gc);
 		grid.addShapetoTop(shape);
-		
+		shape.rotateLeft();
+		grid.updateCurrentShape(shape);
+		//grid.displayBlock();
 		
 	}
 
