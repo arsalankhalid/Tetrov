@@ -10,7 +10,7 @@ import simpleslickgame.TVTick;
 public class TVPlayState extends TVGameState implements Observer { 
 	
 	TVGrid grid;
-	GameContainer gameContainer;
+	GameContainer gc;
 	TVTick tick;
 	TVShape currShape;
 	TVShapeFactory shapeFactory;
@@ -18,10 +18,10 @@ public class TVPlayState extends TVGameState implements Observer {
 	public TVPlayState(TVInvoker i) {
 		super(i);
 		this.grid = new TVGrid();
-		this.gameContainer = i.gc;
+		this.gc = i.gc;
 		this.tick = new TVTick(1000);
 		this.grid = new TVGrid();
-		this.shapeFactory = new TVShapeFactory();
+		this.shapeFactory = new TVShapeFactory(gc);
 		this.currShape = shapeFactory.createShape("TVOshape");
 		currShape.addObserver(this);
 		//create factory and use factory to create cuurShape
@@ -85,7 +85,7 @@ public class TVPlayState extends TVGameState implements Observer {
 		// this update is for collision
 		
 		grid.isCollided((TVShape)o);
-		currShape = shapeFactory.createShape("TVOshape");
+		currShape = shapeFactory.getRandomShape();
 		//set current shape to new shape and bind to new shape
 
 	}
