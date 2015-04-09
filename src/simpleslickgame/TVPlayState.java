@@ -12,7 +12,6 @@ public class TVPlayState extends TVGameState implements Observer {
 	TVGrid grid;
 	GameContainer gameContainer;
 	TVTick tick;
-	TVInvoker invoker;
 	TVShape currShape;
 	TVShapeFactory shapeFactory;
 	
@@ -20,7 +19,6 @@ public class TVPlayState extends TVGameState implements Observer {
 		super(i);
 		this.grid = new TVGrid();
 		this.gameContainer = i.gc;
-		this.invoker = i;
 		this.tick = new TVTick(1000);
 		this.grid = new TVGrid();
 		this.shapeFactory = new TVShapeFactory();
@@ -28,7 +26,6 @@ public class TVPlayState extends TVGameState implements Observer {
 		
 		//create factory and use factory to create cuurShape
 		// since shape is observable, shape.addObserver and pass this
-		
 	} 
 
 	@Override
@@ -39,7 +36,7 @@ public class TVPlayState extends TVGameState implements Observer {
 
 	@Override
 	void pressRight() {
-		currShape.rotateRight();
+		currShape.moveRight();
 		grid.updateCurrentShape(currShape);
 	}
 
@@ -75,10 +72,11 @@ public class TVPlayState extends TVGameState implements Observer {
 	@Override
 	void updateGameboard(int i) { 
 		// number of milliseconds %1000 move down
-		// called every frame
+		// called every single frame
 		// TODO Auto-generated method stub
 		if(tick.update(i)){
 			// do logic that needs to happen
+			// move down
 		}
 	}
 
