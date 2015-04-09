@@ -17,6 +17,7 @@ public class TVInvoker extends BasicGame
 	TVGameState pauseState;
 	TVGameState lostState;
 	TVGameState currentState;
+	GameContainer gc;
 	
 	public TVInvoker()
 	{
@@ -29,6 +30,8 @@ public class TVInvoker extends BasicGame
 	public void init(GameContainer gc) throws SlickException {
 		gc.setShowFPS(false);
 		input = gc.getInput();
+		
+		this.gc = gc;
 		
 	}
 
