@@ -35,6 +35,7 @@ public class TVGrid{
 			i--;
 			j = botRightBlock[1];
 		}
+		displayBlock();
 	}
 	
 	public void updateCurrentShape(TVShape shape){

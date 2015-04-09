@@ -30,6 +30,16 @@ public class GridTest extends BasicGame {
 		grid.addShapetoTop(shape);
 		shape.rotateLeft();
 		grid.updateCurrentShape(shape);
+		shape.moveLeft();
+		grid.updateCurrentShape(shape);
+		shape.moveLeft();
+		grid.updateCurrentShape(shape);
+		shape.moveRight();
+		grid.updateCurrentShape(shape);
+		shape.moveDown();
+		grid.updateCurrentShape(shape);
+		shape.moveDown();
+		grid.updateCurrentShape(shape);
 		//grid.displayBlock();
 		
 	}
