@@ -23,7 +23,7 @@ public class TVPlayState extends TVGameState implements Observer {
 		this.grid = new TVGrid();
 		this.shapeFactory = new TVShapeFactory();
 		this.currShape = shapeFactory.createShape("TVOshape");
-		
+		currShape.addObserver(this);
 		//create factory and use factory to create cuurShape
 		// since shape is observable, shape.addObserver and pass this
 	} 
@@ -65,29 +65,29 @@ public class TVPlayState extends TVGameState implements Observer {
 
 	@Override
 	void renderGameboard() {
-
+		currShape.drawShape();
+		grid.drawBlocks();
 		
 	}
 
 	@Override
 	void updateGameboard(int i) { 
-		// number of milliseconds %1000 move down
 		// called every single frame
-		// TODO Auto-generated method stub
 		if(tick.update(i)){
 			// do logic that needs to happen
-			// move down
+			currShape.moveDown();
 		}
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		// ccast o to tvshape
 		// this update is for collision
-		this.grid.isCollided((TVShape)o);
 		
-		
+		grid.isCollided((TVShape)o);
+		currShape = shapeFactory.createShape("TVOshape");
+		//set current shape to new shape and bind to new shape
+
 	}
 
 }
