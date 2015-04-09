@@ -12,7 +12,6 @@ public class TVPlayState extends TVGameState implements Observer {
 	TVGrid grid;
 	GameContainer gameContainer;
 	TVTick tick;
-	TVInvoker invoker;
 	TVShape currShape;
 	TVShapeFactory shapeFactory;
 	
@@ -68,7 +67,7 @@ public class TVPlayState extends TVGameState implements Observer {
 
 	@Override
 	void renderGameboard() {
-		
+
 		
 	}
 

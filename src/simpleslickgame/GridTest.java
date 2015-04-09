@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 package simpleslickgame;
 
 import org.newdawn.slick.BasicGame;
@@ -36,3 +38,4 @@ public class GridTest extends BasicGame {
 	
 }
 
+>>>>>>> origin/master
