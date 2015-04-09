@@ -1,11 +1,13 @@
 package simpleslickgame;
 
+import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 /*
  * class responsible for creating unique Tetris object's 
  * implements concrete methods
  */
 public class TVShapeFactory {
+
 	protected TVShape tvShape = null;
 	protected GameContainer gc;
 	
