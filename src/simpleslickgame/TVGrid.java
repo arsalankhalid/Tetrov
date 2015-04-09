@@ -5,6 +5,11 @@ public class TVGrid{
 	
 	private TVBlock[][] gameboard;
 	
+	public TVGrid()
+	{
+		gameboard = new TVBlock[22][10];
+	}
+	
 	public void addShapetoTop(TVShape shape){
 		
 		int[] botRightBlock = shape.findBottomRight(shape.blocks);
@@ -17,6 +22,7 @@ public class TVGrid{
 			for(int c = botRightCoord[1]; c >= 0; c--){
 				if(i > 0 && j > 0 && blocks[i][j] != null){
 					gameboard[r][c] = blocks[i][j];
+					displayBlock();
 				}
 				j--;
 			}
@@ -32,8 +38,19 @@ public class TVGrid{
 	
 	public void moveBlockDown(TVBlock tvblock){}
 	
-	
-	
-	
-
+	private void displayBlock()
+	{
+		for(int e = 0; e < 4; e ++)
+		{
+		   for(int t =0; t < 4; t++)
+		 	{
+				if(gameboard[e][t] != null)
+				{
+					System.out.println("1");
+				}else{
+					System.out.println("0");
+				}
+			}
+		}
+	}
 }
