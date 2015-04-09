@@ -35,7 +35,6 @@ public class GridTest extends BasicGame {
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		shape.drawShape();
-		
 	}
 	
 	public static void main(String[] args)

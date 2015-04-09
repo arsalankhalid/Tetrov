@@ -29,7 +29,9 @@ public class TVGrid{
 		}
 	}
 	
-	public void updateCurrentShape(TVShape shape){}
+	public void updateCurrentShape(TVShape shape){
+		
+	}
 	
 	public void removeBlock(){}
 	
@@ -38,6 +40,8 @@ public class TVGrid{
 	public void moveBlockDown(TVBlock tvblock){}
 	
 	public void isCollided(TVShape shape){}
+	
+	public void drawblocks(){}
 	
 	public void displayBlock()
 	{
@@ -54,6 +58,5 @@ public class TVGrid{
 			}
 		   System.out.println();
 		}
-		
 	}
 }
