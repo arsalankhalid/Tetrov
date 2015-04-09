@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import org.newdawn.slick.GameContainer;
 
+
 import simpleslickgame.TVTick;
 public class TVPlayState extends TVGameState implements Observer { 
 	
@@ -13,6 +14,7 @@ public class TVPlayState extends TVGameState implements Observer {
 	TVTick tick;
 	TVInvoker invoker;
 	TVShape currShape;
+	TVShapeFactory shapeFactory;
 	
 	public TVPlayState(TVInvoker i) {
 		super(i);
@@ -21,53 +23,59 @@ public class TVPlayState extends TVGameState implements Observer {
 		this.invoker = i;
 		this.tick = new TVTick(1000);
 		this.grid = new TVGrid();
+		this.shapeFactory = new TVShapeFactory();
+		this.currShape = shapeFactory.createShape("TVOshape");
+		
+		//create factory and use factory to create cuurShape
+		// since shape is observable, shape.addObserver and pass this
+		
 	} 
 
 	@Override
 	void pressLeft() {
-		
-		
+		currShape.moveLeft();
+		grid.updateCurrentShape(currShape);
 	}
 
 	@Override
 	void pressRight() {
-		// TODO Auto-generated method stub
-		
+		currShape.rotateRight();
+		grid.updateCurrentShape(currShape);
 	}
 
 	@Override
 	void pressDown() {
-		// TODO Auto-generated method stub
-		
+		currShape.moveDown();
+		grid.updateCurrentShape(currShape);
 	}
 
 	@Override
 	void pressA() {
-		// TODO Auto-generated method stub
-		
+		currShape.rotateLeft();
+		grid.updateCurrentShape(currShape);
 	}
 
 	@Override
 	void pressB() {
-		// TODO Auto-generated method stub
-		
+		currShape.rotateRight();
+		grid.updateCurrentShape(currShape);
 	}
 
 	@Override
 	void pressPause() {
-		// TODO Auto-generated method stub
-		
+		invoker.setGameState(invoker.getPauseState());
 	}
 
 	@Override
 	void renderGameboard() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	void updateGameboard(int i) { 
 		// number of milliseconds %1000 move down
+		// called every frame
 		// TODO Auto-generated method stub
 		if(tick.update(i)){
 			// do logic that needs to happen
@@ -77,6 +85,9 @@ public class TVPlayState extends TVGameState implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
+		// ccast o to tvshape
+		// this update is for collision
+		
 		
 	}
 
