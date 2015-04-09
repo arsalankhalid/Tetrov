@@ -18,11 +18,10 @@ public class TVGrid{
 		int i = botRightBlock[0];
 		int j = botRightBlock[1];
 		
-		for(int r = botRightCoord[0]; r >= 0; r--){
-			for(int c = botRightCoord[1]; c >= 0; c--){
+		for(int r = botRightCoord[0]; r >= botRightCoord[0] - 4; r--){
+			for(int c = botRightCoord[1]; c >= botRightCoord[1] - 4; c--){
 				if(i > 0 && j > 0 && blocks[i][j] != null){
 					gameboard[r][c] = blocks[i][j];
-					displayBlock();
 				}
 				j--;
 			}
@@ -42,17 +41,19 @@ public class TVGrid{
 	
 	public void displayBlock()
 	{
-		for(int e = 0; e < 4; e ++)
+		for(int e = 0; e < 22; e ++)
 		{
-		   for(int t =0; t < 4; t++)
+		   for(int t =0; t < 10; t++)
 		 	{
 				if(gameboard[e][t] != null)
 				{
-					System.out.println("1");
+					System.out.print("1");
 				}else{
-					System.out.println("0");
+					System.out.print("0");
 				}
 			}
+		   System.out.println();
 		}
+		
 	}
 }

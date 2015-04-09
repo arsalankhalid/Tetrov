@@ -1,5 +1,9 @@
 package simpleslickgame;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -34,5 +38,19 @@ public class GridTest extends BasicGame {
 		
 	}
 	
+	public static void main(String[] args)
+	{
+		try
+		{
+			AppGameContainer appgc;
+			appgc = new AppGameContainer(new GridTest("GridTest"));
+			appgc.setDisplayMode(280, 640, false);
+			appgc.start();
+		}
+		catch (SlickException ex)
+		{
+			Logger.getLogger(TVInvoker.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 }
 
