@@ -31,19 +31,19 @@ public class TVPlayState extends TVGameState implements Observer {
 
 	@Override
 	void pressLeft() {
-		currShape.moveLeft();
+		currShape.moveLeft(grid.collisionCandidate());
 		grid.updateCurrentShape(currShape);
 	}
 
 	@Override
 	void pressRight() {
-		currShape.moveRight();
+		currShape.moveRight(grid.collisionCandidate());
 		grid.updateCurrentShape(currShape);
 	}
 
 	@Override
 	void pressDown() {
-		currShape.moveDown();
+		currShape.moveDown(grid.collisionCandidate());
 		grid.updateCurrentShape(currShape);
 	}
 
