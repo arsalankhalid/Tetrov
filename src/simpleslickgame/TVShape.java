@@ -502,7 +502,7 @@ public abstract class TVShape extends Observable{
 		System.out.println(this.getClass().getSimpleName());
 		
 		for(int i = 0; i < 4; i++){
-			for(int j = 0; i < 4; j++){
+			for(int j = 0; j < 4; j++){
 				if(blocks[i][j] != null)
 					tempShape.blocks[i][j] = blocks[i][j].getCopy();
 				else
