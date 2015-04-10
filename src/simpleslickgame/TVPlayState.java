@@ -86,17 +86,16 @@ public class TVPlayState extends TVGameState implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// ccast o to tvshape
-		// this update is for collision
+
+		int num = grid.isCollided((TVShape)o);
 		
+		if(num > 0) score += num;
+		if(score > score%10) tick.tick -= 50;
 		
-		
-		grid.isCollided((TVShape)o);
 		currShape = shapeFactory.getRandomShape();
 		currShape.addObserver(this);
 		grid.addShapetoTop(currShape);
-		//set current shape to new shape and bind to new shape
-
+		
 	}
 
 }
