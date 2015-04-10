@@ -1,6 +1,8 @@
 package simpleslickgame;
 import java.util.Observable;
 
+import org.newdawn.slick.Graphics;
+
 public abstract class TVGameState {
 
 	TVInvoker invoker;
@@ -22,4 +24,5 @@ public abstract class TVGameState {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

@@ -3,8 +3,9 @@ package simpleslickgame;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
-
+import org.newdawn.slick.Graphics;
 
 import simpleslickgame.TVTick;
 public class TVPlayState extends TVGameState implements Observer { 
@@ -14,8 +15,11 @@ public class TVPlayState extends TVGameState implements Observer {
 	TVTick tick;
 	TVShape currShape;
 	TVShapeFactory shapeFactory;
+	Graphics graphics;
+	Color colour;
 	
 	int score = 0;
+	int level = 0;
 	
 	public TVPlayState(TVInvoker i, TVGrid grid) {
 		super(i);
@@ -27,6 +31,8 @@ public class TVPlayState extends TVGameState implements Observer {
 		currShape.addObserver(this);
 		grid.addShapetoTop(currShape);
 		score = 0;
+		this.graphics= gc.getGraphics();
+		
 		//create factory and use factory to create cuurShape
 		// since shape is observable, shape.addObserver and pass this
 	} 
@@ -70,7 +76,22 @@ public class TVPlayState extends TVGameState implements Observer {
 	void renderGameboard() {
 		currShape.drawShape();
 		grid.drawBlocks();
+		manageScoreAndLevel();
 		
+	}
+	
+	void manageScoreAndLevel() {
+		//score
+		graphics.setColor(Color.white);
+		graphics.drawString("Score: ", 10, 10);
+		graphics.setColor(Color.green);
+		graphics.drawString(Integer.toString(score), 65, 10);
+		
+		//level
+		graphics.setColor(Color.white);
+		graphics.drawString("Level: ", 200, 10);
+		graphics.setColor(Color.red);
+		graphics.drawString(Integer.toString(level), 255, 10);
 	}
 
 	@Override
@@ -93,8 +114,14 @@ public class TVPlayState extends TVGameState implements Observer {
 		}
 		
 		if(num > 0){ 
-			score += num;
-			if(score%10 == 0) tick.tick -= 50;
+			score += num * 10;
+			if(score%10 == 0) {
+				if(level == 9){
+					// set state to win or something, cuz initially speed set to 1000ms, then get overflow if over
+				}
+				tick.tick -= 100;
+				level++;
+			}
 		}
 		
 		currShape = shapeFactory.getRandomShape();
