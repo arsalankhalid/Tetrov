@@ -69,9 +69,14 @@ public class TVGrid{
 	}
 	
 	public void moveRowDown(int row){
-		for(int i=0 ; i < 10; i ++)
+		
+		for(int r = row; r >= 0 ; r--)
 		{
-		  gameboard[row][i].moveDown();
+			for(int c = 10 ; c >= 0; c--)
+			{
+				gameboard[r+1][c] = gameboard[r][c];
+				gameboard[r+1][c].moveDown();
+			}
 		}
 		
 	}
@@ -86,6 +91,41 @@ public class TVGrid{
 	
 	public void drawBlocks(){
 		
+	}
+	
+	public TVBlock[][] collisionCandidate()
+	{
+		TVBlock[][] GameboardTemp = gameboard.clone();
+		
+		for(Iterator<Integer[]> it = currentShape.iterator(); it.hasNext();){
+			Integer[] cur = it.next();
+			GameboardTemp[cur[0]][cur[1]] = null;
+		}
+		return GameboardTemp;
+	}
+	
+	public void checkGameboard()
+	{
+		int counter = 0;
+		for(int i = 0; i < 22;i++)
+		{
+			for(int j =0;j<10;j++)
+			{
+				if(gameboard[i][j] != null)
+				{
+				   counter++;	
+				}
+			}
+			if(counter == 10)
+			{
+				for(int t =0 ; t<10;t++)
+				{
+					gameboard[i][t] = null;
+				}
+				moveRowDown(i);
+			}
+			counter = 0;
+		}
 	}
 	
 	public void displayBlock()
