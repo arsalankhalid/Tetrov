@@ -50,6 +50,34 @@ public class TVShapeFactory {
 	//method receives 2 shapes and checks if they're the same
 	public boolean equals(TVShape tvShape1,TVShape tvShape2) {
 		boolean result = true;
+		//ensure class type is the same for both obj's 
+		if(tvShape1 instanceof TVIShape) {
+			
+		}
+		
+		if(tvShape1 instanceof TVOShape) {
+			
+		}
+		
+		if(tvShape1 instanceof TVLShape) {
+			
+		}
+		
+		if(tvShape1 instanceof TVZShape) {
+			
+		}
+		
+		if(tvShape1 instanceof TVJShape) {
+			
+		}
+
+		if(tvShape1 instanceof TVSShape) {
+			
+		}
+	
+		if(tvShape1 instanceof TVTShape) {
+			
+		}
 		
 		return result;
 	}
