@@ -63,16 +63,11 @@ public abstract class TVShape extends Observable{
 		
 		gridRightRow = bottomRight[0];
 		gridRightCol = 4 + bottomRight[1];
-		
-		//System.out.println(gridLeftRow);
-		//System.out.println(gridLeftCol);
-		
-		//System.out.println(gridRightRow);
-		//System.out.println(gridRightCol);
+
 	}
 	
 	// Rotates the shape counterclockwise
-	public void rotateLeft(){
+	public void rotateLeft(TVBlock[][] grid){
 		// Rotate blocks in array
 		TVBlock[][] newArray = new TVBlock[4][4];
 		for(int row = 0; row < 4; row++) {
@@ -110,12 +105,11 @@ public abstract class TVShape extends Observable{
 		if(!fixGridLocation(oldArray)){
 			undoRotation(false);
 		}
-		//displayGridValues();
 		displayBlocks();
 	}
 	
 	// Rotates the shape clockwise
-	public void rotateRight(){
+	public void rotateRight(TVBlock[][] grid){
 		// Rotate blocks in array
 		TVBlock[][] newArray = new TVBlock[4][4];
 		for(int row = 0; row < 4; row++) {
@@ -152,7 +146,6 @@ public abstract class TVShape extends Observable{
 		if(!fixGridLocation(oldArray)){
 			undoRotation(true);
 		}
-		//displayGridValues();
 		displayBlocks();
 	}
 	
@@ -246,15 +239,6 @@ public abstract class TVShape extends Observable{
 	}
 	
 	public int[] getBottomRightCoord(){
-		/*
-		for(int r = 3; r >= 0; r--){
-			for(int c = 3; c >= 0; c--){
-				if(blocks[r][c]!=null){
-					blocks[r][c]
-				}
-			}
-		}
-		*/
 		
 		if(gridLeftRow > gridRightRow){
 			return new int[]{this.gridLeftRow, this.gridRightCol};
@@ -280,8 +264,6 @@ public abstract class TVShape extends Observable{
 		int[] leftDifference = findLeftDifference(oldblocks);
 		int[] rightDifference = findRightDifference(oldblocks);
 		
-		//System.out.println(Arrays.toString(leftDifference));
-		//System.out.println(Arrays.toString(rightDifference));
 		
 		this.displayGridValues();
 		
