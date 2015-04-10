@@ -47,6 +47,13 @@ public class TVShapeFactory {
 		return tvShape;
 	}
 	
+	//method receives 2 shapes and checks if they're the same
+	public boolean equals(TVShape tvShape1,TVShape tvShape2) {
+		boolean result = true;
+		
+		return result;
+	}
+	
 	/*
 	 * method creates a random shape using tetris 
 	 * Implements bust head tetris algorithm 
@@ -67,9 +74,9 @@ public class TVShapeFactory {
 		previousShape = shapes[index]; 
 		
 		//don't allow duplicate shapes to be released 
-		if(previousShape == shapes[index]) {
+	/*	if(previousShape.equals(shapes[index])) {
 			
-		}
+		} */
 	
 		return shapes[index];
 	}
