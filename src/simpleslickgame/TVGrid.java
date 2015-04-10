@@ -2,6 +2,7 @@ package simpleslickgame;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.lang.*;
 
 
 public class TVGrid{
@@ -145,7 +146,8 @@ public class TVGrid{
 	}
 	
 	public int isCollided(TVShape shape){
-		newshapes.add(shape);
+		TVShape cloneShape = shape;
+		newshapes.add(cloneShape);
 		return checkGameboard();
 	}
 	
