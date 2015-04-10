@@ -49,13 +49,13 @@ public class TVPlayState extends TVGameState implements Observer {
 
 	@Override
 	void pressA() {
-		currShape.rotateLeft();
+		currShape.rotateLeft(grid.collisionCandidate());
 		grid.updateCurrentShape(currShape);
 	}
 
 	@Override
 	void pressB() {
-		currShape.rotateRight();
+		currShape.rotateRight(grid.collisionCandidate());
 		grid.updateCurrentShape(currShape);
 	}
 
@@ -76,7 +76,7 @@ public class TVPlayState extends TVGameState implements Observer {
 		// called every single frame
 		if(tick.update(i)){
 			// do logic that needs to happen
-			currShape.moveDown();
+			currShape.moveDown(grid.collisionCandidate());
 			grid.updateCurrentShape(currShape);
 		}
 	}
