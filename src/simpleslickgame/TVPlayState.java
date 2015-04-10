@@ -89,8 +89,10 @@ public class TVPlayState extends TVGameState implements Observer {
 
 		int num = grid.isCollided((TVShape)o);
 		
-		if(num > 0) score += num;
-		if(score%10 == 0) tick.tick -= 50;
+		if(num > 0){ 
+			score += num;
+			if(score%10 == 0) tick.tick -= 50;
+		}
 		
 		currShape = shapeFactory.getRandomShape();
 		currShape.addObserver(this);

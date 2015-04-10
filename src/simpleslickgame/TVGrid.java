@@ -2,8 +2,6 @@ package simpleslickgame;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.lang.*;
-
 
 public class TVGrid{
 	
@@ -204,6 +202,7 @@ public class TVGrid{
 				}
 				moveRowDown(i);
 				totalRowsRemoved++;
+				i = 0;
 			}
 			counter = 0;
 		}
