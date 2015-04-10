@@ -8,11 +8,13 @@ public class TVGrid{
 	
 	private TVBlock[][] gameboard;
 	private ArrayList<Integer[]> currentShape;
+	private int numOfRemoved = 0;
 	
 	public TVGrid()
 	{
 		gameboard = new TVBlock[22][10];
 		currentShape = new ArrayList<Integer[]>();
+		newshapes = new ArrayList<TVShape[]>();
 	}
 	
 	public void addShapetoTop(TVShape shape){
@@ -143,11 +145,7 @@ public class TVGrid{
 	}
 	
 	public int isCollided(TVShape shape){
-		   
-		if()
-		
-		return 0;
-		
+		return checkGameboard();
 	}
 	
 	public void drawBlocks(){
@@ -165,9 +163,10 @@ public class TVGrid{
 		return GameboardTemp;
 	}
 	
-	public void checkGameboard()
+	public int checkGameboard()
 	{
 		int counter = 0;
+		int totalRowsRemoved = 0;
 		for(int i = 0; i < 22;i++)
 		{
 			for(int j =0;j<10;j++)
@@ -184,9 +183,11 @@ public class TVGrid{
 					gameboard[i][t] = null;
 				}
 				moveRowDown(i);
+				totalRowsRemoved++;
 			}
 			counter = 0;
 		}
+		return totalRowsRemoved;
 	}
 	
 	public void displayBlock()
