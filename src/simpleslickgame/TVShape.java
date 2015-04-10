@@ -1,6 +1,5 @@
 package simpleslickgame;
 
-import java.util.Arrays;
 import java.util.Observable;
 
 import org.newdawn.slick.Color;
@@ -65,11 +64,11 @@ public abstract class TVShape extends Observable{
 		gridRightRow = bottomRight[0];
 		gridRightCol = 4 + bottomRight[1];
 		
-		System.out.println(gridLeftRow);
-		System.out.println(gridLeftCol);
+		//System.out.println(gridLeftRow);
+		//System.out.println(gridLeftCol);
 		
-		System.out.println(gridRightRow);
-		System.out.println(gridRightCol);
+		//System.out.println(gridRightRow);
+		//System.out.println(gridRightCol);
 	}
 	
 	// Rotates the shape counterclockwise
@@ -169,7 +168,7 @@ public abstract class TVShape extends Observable{
 	}
 	
 	// Moves the shape down one rown
-	public void moveDown(){
+	public void moveDown(TVBlock[][] grid){
 		
 		if(gridLeftRow == 21 || gridRightRow == 21)
 			return;
@@ -181,13 +180,15 @@ public abstract class TVShape extends Observable{
 				}
 			}
 		}
+		
+		
 		gridLeftRow += 1;
 		gridRightRow += 1;
 		this.displayGridValues();
 	}
 	
 	// Moves the shape left one column
-	public void moveLeft(){
+	public void moveLeft(TVBlock[][] grid){
 		if(gridLeftCol == 0 || gridRightCol == 0)
 			return;
 		for(int row = 0; row < blocks.length; row++){
@@ -203,7 +204,7 @@ public abstract class TVShape extends Observable{
 	}
 	
 	// Moves the shape right one column
-	public void moveRight(){
+	public void moveRight(TVBlock[][] grid){
 		if(gridLeftCol == 9 || gridRightCol == 9)
 			return;
 		for(int row = 0; row < blocks.length; row++){
@@ -245,7 +246,21 @@ public abstract class TVShape extends Observable{
 	}
 	
 	public int[] getBottomRightCoord(){
-		return new int[]{this.gridRightRow, this.gridRightCol};
+		/*
+		for(int r = 3; r >= 0; r--){
+			for(int c = 3; c >= 0; c--){
+				if(blocks[r][c]!=null){
+					blocks[r][c]
+				}
+			}
+		}
+		*/
+		
+		if(gridLeftRow > gridRightRow){
+			return new int[]{this.gridLeftRow, this.gridRightCol};
+		}
+		else
+			return new int[]{this.gridRightRow, this.gridRightCol};
 	}
 	
 	// Draws the shape on the board
@@ -265,8 +280,8 @@ public abstract class TVShape extends Observable{
 		int[] leftDifference = findLeftDifference(oldblocks);
 		int[] rightDifference = findRightDifference(oldblocks);
 		
-		System.out.println(Arrays.toString(leftDifference));
-		System.out.println(Arrays.toString(rightDifference));
+		//System.out.println(Arrays.toString(leftDifference));
+		//System.out.println(Arrays.toString(rightDifference));
 		
 		this.displayGridValues();
 		
@@ -428,23 +443,30 @@ public abstract class TVShape extends Observable{
 	
 	// Displays grid values (for testing)
 	private void displayGridValues(){
-		System.out.println("Left row: " + gridLeftRow);
-		System.out.println("Left col: " + gridLeftCol);
-		System.out.println("Right row: " + gridRightRow);
-		System.out.println("Right col: " + gridRightCol);
-		System.out.println();
+		boolean display = true;
+		if(display){
+			System.out.println("Left row: " + gridLeftRow);
+			System.out.println("Left col: " + gridLeftCol);
+			System.out.println("Right row: " + gridRightRow);
+			System.out.println("Right col: " + gridRightCol);
+			System.out.println();
+		}
+		displayBlocks();
 	}
 	
 	// Displays block array (for testing)
 	private void displayBlocks(){
-		for(int i = 0; i < 4; i++){
-			for(int j = 0; j < 4; j++){
-				if(blocks[i][j] != null)
-					System.out.print("1");
-				else
-					System.out.print("0");
+		boolean display = true;
+		if(display){
+			for(int i = 0; i < 4; i++){
+				for(int j = 0; j < 4; j++){
+					if(blocks[i][j] != null)
+						System.out.print("1");
+					else
+						System.out.print("0");
+				}
+				System.out.println();
 			}
-			System.out.println();
 		}
 	}
 }
