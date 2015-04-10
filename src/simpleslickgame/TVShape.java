@@ -174,9 +174,6 @@ public abstract class TVShape extends Observable{
 	// Moves the shape down one rown
 	public void moveDown(TVBlock[][] grid){
 		
-		if(gridLeftRow == 21 || gridRightRow == 21)
-			return;
-		
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
 				if(blocks[row][col] != null){
@@ -194,6 +191,9 @@ public abstract class TVShape extends Observable{
 			this.notifyObservers();
 		}
 	
+
+		
+		
 		this.displayGridValues();
 	}
 	
@@ -204,8 +204,6 @@ public abstract class TVShape extends Observable{
 					blocks[i][c].moveUp();
 			}
 		}
-		gridLeftRow -= 1;
-		gridRightRow -= 1;
 	}
 	
 	// Moves the shape left one column
@@ -221,15 +219,14 @@ public abstract class TVShape extends Observable{
 		}
 		
 		
-		gridLeftCol -= 1;
-		gridRightCol -= 1;
-		
 		if(this.checkCollision(grid)){
-			//moveRight(grid);
+			moveRight(grid);
 			this.setChanged();
 			this.notifyObservers();
 		}
 
+		gridLeftCol -= 1;
+		gridRightCol -= 1;
 		
 		this.displayGridValues();
 	}
@@ -248,14 +245,15 @@ public abstract class TVShape extends Observable{
 		
 
 		
-		gridLeftCol += 1;
-		gridRightCol += 1;
+
 		
 		if(this.checkCollision(grid)){
-			//moveLeft(grid);
+			moveLeft(grid);
 			this.setChanged();
 			this.notifyObservers();
 		}
+		gridLeftCol += 1;
+		gridRightCol += 1;
 
 		this.displayGridValues();
 	}

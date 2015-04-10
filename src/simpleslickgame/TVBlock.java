@@ -45,18 +45,39 @@ public class TVBlock extends Rectangle{
 	
 	// Checks if this block collides with any in the array given
 	public boolean checkCollision(TVBlock[][] grid){
+		int blockRow = this.row;
+		int blockCol = this.col;
+		
 		for(int row = 0; row < grid.length; row++){
 			for(int col = 0; col < grid[row].length; col++){
 				if(grid[row][col] != null && grid[row][col].intersects(this)){
-					if((row -1 == this.row && col -1 == this.col) || (row -1 == this.row && col +1 == this.col)){
+					
+					float blockX = this.getX();
+					float gridX = grid[row][col].getX();
+					
+					float blockWidth = this.getWidth();
+					
+					System.out.println("BlockX: " + blockX + " GridX: "  + gridX);
+					System.out.println("BlockWidth: " + blockWidth);
+					
+					if(Math.abs(gridX - blockX) == blockWidth)
+						return false;
+					else
+						return true;
+					/*
+
+					
+					if((row -2 == blockRow && col -1 == blockCol) || (row -2 == blockRow && col +1 == blockCol)){
 						
 					}
 					else
 						return true;
+					*/
 				}
 			}
 		}
 		return false;
+		
 	}
 	
 	// Moves a block left in increments of its own width
