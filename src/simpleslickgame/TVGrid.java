@@ -104,7 +104,6 @@ public class TVGrid{
 	
 		currentShape.clear();
 		for(int r = botRightCoord[0]; r >= botRightCoord[0] - 4; r--){
-			//j = getRightMostBlock(blocks, i);
 			for(int c = botRightCoord[1]; c >= botRightCoord[1] - 4; c--){
 				if(i >= 0 && j >= 0 && blocks[i][j] != null){
 					gameboard[r][c] = blocks[i][j];
@@ -121,34 +120,6 @@ public class TVGrid{
 
 		
 	}
-	
-	/*
-	public void updateCurrentShape(TVShape shape){
-		for(Iterator<Integer[]> it = currentShape.iterator(); it.hasNext();){
-			Integer[] cur = it.next();
-			gameboard[cur[0]][cur[1]] = null;
-		}
-		int[] botRightBlock = shape.findBottomRight(shape.blocks);
-		int[] botRightCoord = shape.getBottomRightCoord();
-		TVBlock[][] blocks = shape.getBlocks();
-		int i = botRightBlock[0];
-		int j = botRightBlock[1];
-		currentShape.clear();
-		for(int r = botRightCoord[0]; r >= botRightCoord[0] - 4; r--){
-			for(int c = botRightCoord[1]; c >= botRightCoord[1] - 4; c--){
-				if(i >= 0 && j >= 0 && blocks[i][j] != null){
-					gameboard[r][c] = blocks[i][j];
-					currentShape.add(new Integer[]{r, c});
-				}
-				//System.out.println("i: " + i + " j: " + j);
-				j--;
-			}
-			i--;
-			j = botRightBlock[1];
-		}
-		displayBlock();
-	}
-	*/
 	
 	public void removeBlock(int row, int col){
 		gameboard[row][col] = null;
@@ -171,7 +142,11 @@ public class TVGrid{
 		block.moveDown();
 	}
 	
-	public void isCollided(TVShape shape){
+	public int isCollided(TVShape shape){
+		   
+		if()
+		
+		return 0;
 		
 	}
 	
