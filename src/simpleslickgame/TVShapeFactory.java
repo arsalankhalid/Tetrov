@@ -12,12 +12,15 @@ public class TVShapeFactory {
 
 	protected TVShape tvShape = null;
 	protected GameContainer gc;
+	protected TVShape previousShape = null; 
 	
 	TVShapeFactory(GameContainer gc) {
 		this.gc = gc;
 	}
 	
 	public TVShape createShape(String shape) {
+		System.out.println(shape);
+		
 		if (shape=="TVIShape") {
 			tvShape = new TVIShape(gc);
 		}
@@ -62,6 +65,13 @@ public class TVShapeFactory {
 		shapes[6] = createShape("TVTShape");
 		
 		int index = new Random().nextInt(shapes.length);
+		previousShape = shapes[index]; 
+		
+		//don't allow duplicate shapes to be released 
+		if(previousShape == shapes[index]) {
+			
+		}
+	
 		return shapes[index];
 	}
 }
