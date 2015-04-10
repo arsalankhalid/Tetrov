@@ -8,13 +8,13 @@ public class TVGrid{
 	
 	private TVBlock[][] gameboard;
 	private ArrayList<Integer[]> currentShape;
-	private ArrayList<TVShape[]> newshapes;
+	private ArrayList<TVShape> newshapes;
 	
 	public TVGrid()
 	{
 		gameboard = new TVBlock[22][10];
 		currentShape = new ArrayList<Integer[]>();
-		newshapes = new ArrayList<TVShape[]>();
+		newshapes = new ArrayList<TVShape>();
 	}
 	
 	public void addShapetoTop(TVShape shape){
@@ -145,6 +145,7 @@ public class TVGrid{
 	}
 	
 	public int isCollided(TVShape shape){
+		newshapes.add(shape);
 		return checkGameboard();
 	}
 	
