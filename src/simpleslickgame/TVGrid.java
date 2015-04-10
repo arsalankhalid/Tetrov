@@ -8,7 +8,7 @@ public class TVGrid{
 	
 	private TVBlock[][] gameboard;
 	private ArrayList<Integer[]> currentShape;
-	private int numOfRemoved = 0;
+	private ArrayList<TVShape[]> newshapes;
 	
 	public TVGrid()
 	{
