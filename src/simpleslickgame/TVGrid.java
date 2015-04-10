@@ -153,6 +153,9 @@ public class TVGrid{
 		TVShape cloneShape = shape.copyShape();
 		newshapes.add(cloneShape);
 		this.updateCurrentShape(cloneShape);
+		if(currentShape.get(3)[0] == 1){
+			return -1;
+		}
 		return checkGameboard();
 	}
 	

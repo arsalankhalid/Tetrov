@@ -1,8 +1,6 @@
 package simpleslickgame;
 import java.util.Observable;
 
-import simpleslickgame.TVTick;
-
 public abstract class TVGameState {
 
 	TVInvoker invoker;

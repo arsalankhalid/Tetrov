@@ -17,12 +17,11 @@ public class TVPlayState extends TVGameState implements Observer {
 	
 	int score = 0;
 	
-	public TVPlayState(TVInvoker i) {
+	public TVPlayState(TVInvoker i, TVGrid grid) {
 		super(i);
-		this.grid = new TVGrid();
+		this.grid = grid;
 		this.gc = i.gc;
 		this.tick = new TVTick(1000);
-		this.grid = new TVGrid();
 		this.shapeFactory = new TVShapeFactory(gc);
 		this.currShape = shapeFactory.getRandomShape();
 		currShape.addObserver(this);
@@ -88,6 +87,10 @@ public class TVPlayState extends TVGameState implements Observer {
 	public void update(Observable o, Object arg) {
 
 		int num = grid.isCollided((TVShape)o);
+		
+		if(num == -1){
+			invoker.setGameState(invoker.getLostState());
+		}
 		
 		if(num > 0){ 
 			score += num;

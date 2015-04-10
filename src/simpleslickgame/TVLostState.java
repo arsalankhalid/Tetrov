@@ -3,14 +3,13 @@ package simpleslickgame;
 import java.util.Observable;
 import java.util.Observer;
 
-public class TVPauseState extends TVGameState implements Observer { 
+public class TVLostState extends TVGameState implements Observer { 
 	
 	TVGrid grid;
 	
-	public TVPauseState(TVInvoker i, TVGrid grid) {
+	public TVLostState(TVInvoker i, TVGrid grid) {
 		super(i);
 		this.grid = grid;
-		
 	} 
 
 	@Override
@@ -40,13 +39,12 @@ public class TVPauseState extends TVGameState implements Observer {
 
 	@Override
 	void pressPause() {
-		invoker.setGameState(invoker.getPlayState());
+		invoker.newGame();
 	}
 
 	@Override
 	void renderGameboard() {
 		grid.drawBlocks();
-		
 	}
 
 	@Override

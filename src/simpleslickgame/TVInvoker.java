@@ -29,10 +29,24 @@ public class TVInvoker extends BasicGame
 		gc.setShowFPS(false);
 		input = gc.getInput();
 		this.gc = gc;
-		playState = new TVPlayState(this);
+		
+		TVGrid grid = new TVGrid();
+
+		playState = new TVPlayState(this, grid);
+		pauseState = new TVPauseState(this, grid);
+		lostState = new TVLostState(this, grid);
 		currentState = playState;	
 		
 		
+	}
+	
+	public void newGame(){
+		TVGrid grid = new TVGrid();
+
+		playState = new TVPlayState(this, grid);
+		pauseState = new TVPauseState(this, grid);
+		lostState = new TVLostState(this, grid);
+		currentState = playState;	
 	}
 
 	@Override
