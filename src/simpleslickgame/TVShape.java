@@ -185,15 +185,16 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		
+		if(this.checkCollision(grid)){
+			//moveUp();
+			this.setChanged();
+			this.notifyObservers();
+		}
 		
 		gridLeftRow += 1;
 		gridRightRow += 1;
 		
-		if(this.checkCollision(grid)){
-			moveUp();
-			this.setChanged();
-			this.notifyObservers();
-		}
+
 		
 		
 		this.displayGridValues();
@@ -219,14 +220,17 @@ public abstract class TVShape extends Observable{
 				}
 			}
 		}
-		gridLeftCol -= 1;
-		gridRightCol -= 1;
 		
 		if(this.checkCollision(grid)){
-			moveRight(grid);
+			//moveRight(grid);
 			this.setChanged();
 			this.notifyObservers();
 		}
+		
+		gridLeftCol -= 1;
+		gridRightCol -= 1;
+		
+
 		
 		this.displayGridValues();
 	}
@@ -242,14 +246,16 @@ public abstract class TVShape extends Observable{
 				}
 			}
 		}
-		gridLeftCol += 1;
-		gridRightCol += 1;
 		
 		if(this.checkCollision(grid)){
-			moveLeft(grid);
+			//moveLeft(grid);
 			this.setChanged();
 			this.notifyObservers();
 		}
+		
+		gridLeftCol += 1;
+		gridRightCol += 1;
+		
 
 		this.displayGridValues();
 	}
