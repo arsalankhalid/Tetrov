@@ -60,8 +60,9 @@ public class TVBlock extends Rectangle{
 					System.out.println("BlockX: " + blockX + " GridX: "  + gridX);
 					System.out.println("BlockWidth: " + blockWidth);
 					
-					if(Math.abs(gridX - blockX) == blockWidth)
-						return false;
+					if(Math.abs(gridX - blockX) == blockWidth){
+						//Do nothing for now
+					}
 					else
 						return true;
 					/*
