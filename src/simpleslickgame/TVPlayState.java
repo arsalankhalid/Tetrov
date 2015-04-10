@@ -89,6 +89,7 @@ public class TVPlayState extends TVGameState implements Observer {
 		grid.isCollided((TVShape)o);
 		currShape = shapeFactory.getRandomShape();
 		currShape.addObserver(this);
+		grid.addShapetoTop(currShape);
 		//set current shape to new shape and bind to new shape
 
 	}
