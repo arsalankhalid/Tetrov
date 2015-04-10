@@ -6,7 +6,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 
 public abstract class TVShape extends Observable{
-
+	boolean display = false;
+	
 	protected TVBlock[][] blocks;
 	protected GameContainer gc;
 	protected Color colour;
@@ -160,19 +161,8 @@ public abstract class TVShape extends Observable{
 		displayBlocks();
 	}
 	
-	// Returns the location of the top left block in the blocks array
-	public int[] getTopLeftBlock(){
-		for(int r = 0; r < 4; r++){
-			for(int c = 0; c < 4; c++){
-				if(blocks[r][c] != null)
-					return new int[]{r, c};
-			}
-		}
-		return null;
-	}
-	
 	// Moves the shape down one rown
-	public void moveDown(TVBlock[][] grid){
+	public synchronized void moveDown(TVBlock[][] grid){
 		
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
@@ -182,31 +172,23 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		
-		
-		
 		if(this.checkCollision(grid)){
 			moveUp();
 			this.setChanged();
 			this.notifyObservers();
 		}
+		else{
+			gridLeftRow += 1;
+			gridRightRow += 1;
+		}
 	
-		gridLeftRow += 1;
-		gridRightRow += 1;
+
 		
 		this.displayGridValues();
 	}
 	
-	public void moveUp(){
-		for(int i=0;i<4;i++){
-			for(int c = 0; c < 4; c++){
-				if(blocks[i][c] != null)
-					blocks[i][c].moveUp();
-			}
-		}
-	}
-	
 	// Moves the shape left one column
-	public void moveLeft(TVBlock[][] grid){
+	public synchronized void moveLeft(TVBlock[][] grid){
 		if(gridLeftCol == 0 || gridRightCol == 0)
 			return;
 		for(int row = 0; row < blocks.length; row++){
@@ -219,18 +201,19 @@ public abstract class TVShape extends Observable{
 		
 		if(this.checkCollision(grid)){
 			moveRight();
-			this.setChanged();
-			this.notifyObservers();
+		}
+		else{
+			gridLeftCol -= 1;
+			gridRightCol -= 1;
 		}
 
-		gridLeftCol -= 1;
-		gridRightCol -= 1;
+
 		
 		this.displayGridValues();
 	}
 	
 	// Moves the shape right one column
-	public void moveRight(TVBlock[][] grid){
+	public synchronized void moveRight(TVBlock[][] grid){
 		if(gridLeftCol == 9 || gridRightCol == 9)
 			return;
 		for(int row = 0; row < blocks.length; row++){
@@ -243,15 +226,43 @@ public abstract class TVShape extends Observable{
 		
 		if(this.checkCollision(grid)){
 			moveLeft();
-			this.setChanged();
-			this.notifyObservers();
+		}
+		else{
+			gridLeftCol += 1;
+			gridRightCol += 1;
 		}
 		
-		gridLeftCol += 1;
-		gridRightCol += 1;
+
 
 
 		this.displayGridValues();
+	}
+	
+	// Checks if any block collides with the grid
+	public boolean checkCollision(TVBlock[][] grid){
+		// For each block, check if it intersects with a block on the grid
+		if(gridLeftRow == 21 || gridRightRow == 21)
+			return true;
+		
+		for(int row = 0; row < blocks.length; row++){
+			for(int col = 0; col < blocks[row].length; col++){
+				if(blocks[row][col] != null && blocks[row][col].checkCollision(grid)){
+					//Notifying the observer goes here
+					
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void moveUp(){
+		for(int i=0;i<4;i++){
+			for(int c = 0; c < 4; c++){
+				if(blocks[i][c] != null)
+					blocks[i][c].moveUp();
+			}
+		}
 	}
 	
 	private void moveRight(){
@@ -277,24 +288,6 @@ public abstract class TVShape extends Observable{
 	// Returns the current block array
 	public TVBlock[][] getBlocks(){
 		return blocks;
-	}
-	
-	// Checks if any block collides with the grid
-	public boolean checkCollision(TVBlock[][] grid){
-		// For each block, check if it intersects with a block on the grid
-		if(gridLeftRow == 21 || gridRightRow == 21)
-			return true;
-		
-		for(int row = 0; row < blocks.length; row++){
-			for(int col = 0; col < blocks[row].length; col++){
-				if(blocks[row][col] != null && blocks[row][col].checkCollision(grid)){
-					//Notifying the observer goes here
-					
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 	
 	public int[] getBottomLeftCoord(){
@@ -330,6 +323,34 @@ public abstract class TVShape extends Observable{
 		
 		this.displayGridValues();
 		
+		if(this.getClass().getSimpleName().equals("TVTShape")){
+			int blocksOnBotRow = 0;
+			int blocksOnMidRow = 0;
+			int botRow = 0;
+			for(int r = 3; r >= 0; r--){
+				for(int c = 3; c >= 0; c--){
+					if(blocks[r][c] != null){
+						blocksOnBotRow++;
+					}
+				}
+				if(blocksOnBotRow != 0){
+					botRow = r;
+					r = -1;
+				}
+			}
+			
+			for(int c = 0; c < 4; c++){
+				if(blocks[botRow-1][c] != null)
+					blocksOnMidRow++;
+			}
+			
+			
+			
+			if(blocksOnBotRow == 1 && blocksOnMidRow == 3){
+				gridRightRow+=1;
+			}
+		}
+		
 		if(gridLeftRow + leftDifference[0] > 21 || gridLeftCol + leftDifference[1] > 9 || gridLeftCol + leftDifference[1] < 0){
 			return false;
 		}
@@ -343,6 +364,8 @@ public abstract class TVShape extends Observable{
 		
 		gridRightRow += rightDifference[0];
 		gridRightCol += rightDifference[1];
+		
+
 		
 		return true;
 	}
@@ -486,9 +509,19 @@ public abstract class TVShape extends Observable{
 		displayBlocks();
 	}
 	
+	// Returns the location of the top left block in the blocks array
+	public int[] getTopLeftBlock(){
+		for(int r = 0; r < 4; r++){
+			for(int c = 0; c < 4; c++){
+				if(blocks[r][c] != null)
+					return new int[]{r, c};
+			}
+		}
+		return null;
+	}
+	
 	// Displays grid values (for testing)
 	private void displayGridValues(){
-		boolean display = true;
 		if(display){
 			System.out.println("Left row: " + gridLeftRow);
 			System.out.println("Left col: " + gridLeftCol);
@@ -501,7 +534,6 @@ public abstract class TVShape extends Observable{
 	
 	// Displays block array (for testing)
 	private void displayBlocks(){
-		boolean display = true;
 		if(display){
 			for(int i = 0; i < 4; i++){
 				for(int j = 0; j < 4; j++){
