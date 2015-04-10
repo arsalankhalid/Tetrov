@@ -57,7 +57,7 @@ public class TVGrid{
 					blocks[i][j].row = r;
 					blocks[i][j].col = c;
 					currentShape.add(new Integer[]{r, c});
-					System.out.println("i: " + i + " j: " + j);
+					//System.out.println("i: " + i + " j: " + j);
 				}
 				j--;
 			}
@@ -113,7 +113,7 @@ public class TVGrid{
 					blocks[i][j].row = r;
 					blocks[i][j].col = c;
 					currentShape.add(new Integer[]{r, c});
-					System.out.println("i: " + i + " j: " + j);
+					//System.out.println("i: " + i + " j: " + j);
 				}
 				j--;
 			}

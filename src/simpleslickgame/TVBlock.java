@@ -45,6 +45,7 @@ public class TVBlock extends Rectangle{
 	
 	// Checks if this block collides with any in the array given
 	public boolean checkCollision(TVBlock[][] grid){
+		int runs = 0;
 		for(int row = 0; row < grid.length; row++){
 			for(int col = 0; col < grid[row].length; col++){
 				if(grid[row][col] != null && grid[row][col].intersects(this)){
@@ -55,26 +56,19 @@ public class TVBlock extends Rectangle{
 					float blockY = this.getY();
 					float gridY = grid[row][col].getY();
 					
-					float blockWidth = this.getWidth();
-					float blockHeight = this.getHeight();
 					
-					System.out.println("BlockX: " + blockX + " GridX: "  + gridX);
-					System.out.println("BlockWidth: " + blockWidth);
+					System.out.println("BlockX: " + blockX + " BlockY: "  + blockY);
+					System.out.println( "GridX: " + gridX + " GridY: "  +  gridY);
 					
-					if(Math.abs(gridX - blockX) == blockWidth || Math.abs(gridY - blockY) == blockHeight){
-						//Do nothing for now
-					}
-					else
+					if(Math.abs(gridX - blockX) == 0 && Math.abs(gridY - blockY) == 0){
 						return true;
-					/*
-
-					
-					if((row -2 == blockRow && col -1 == blockCol) || (row -2 == blockRow && col +1 == blockCol)){
-						
 					}
-					else
-						return true;
-					*/
+					else{
+						runs++;
+					}
+					
+					if(runs > 1)
+						return false;
 				}
 			}
 		}
