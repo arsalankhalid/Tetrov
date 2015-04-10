@@ -493,4 +493,28 @@ public abstract class TVShape extends Observable{
 			}
 		}
 	}
+	
+	public TVShape copyShape(){
+		
+		TVShapeFactory f = new TVShapeFactory(gc);
+		TVShape tempShape = f.createShape(this.getClass().getSimpleName());
+		
+		System.out.println(this.getClass().getSimpleName());
+		
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; i < 4; j++){
+				if(blocks[i][j] != null)
+					tempShape.blocks[i][j] = blocks[i][j].getCopy();
+				else
+					tempShape.blocks[i][j] = null;
+			}
+		}
+		
+		tempShape.gridLeftCol = gridLeftCol;
+		tempShape.gridLeftRow = gridLeftRow;
+		tempShape.gridRightCol = gridRightCol;
+		tempShape.gridRightRow = gridRightRow;
+		
+		return tempShape;
+	}
 }
