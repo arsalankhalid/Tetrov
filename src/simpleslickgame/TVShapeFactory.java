@@ -19,27 +19,26 @@ public class TVShapeFactory {
 	}
 	
 	public TVShape createShape(String shape) {
-		System.out.println(shape);
 		
-		if (shape=="TVIShape") {
+		if (shape.equals("TVIShape")) {
 			tvShape = new TVIShape(gc);
 		}
-		else if (shape=="TVOShape") {
+		else if (shape.equals("TVOShape")) {
 			tvShape = new TVOShape(gc);
 		}
-		else if (shape=="TVLShape") {
+		else if (shape.equals("TVLShape")) {
 			tvShape = new TVLShape(gc);
 		}
-		else if (shape=="TVZShape") {
+		else if (shape.equals("TVZShape")) {
 			tvShape = new TVZShape(gc);
 		}
-		else if (shape=="TVJShape") {
+		else if (shape.equals("TVJShape")) {
 			tvShape = new TVJShape(gc);
 		}
-		else if (shape=="TVSShape") {
+		else if (shape.equals("TVSShape")) {
 			tvShape = new TVSShape(gc);
 		}
-		else if (shape=="TVTShape") {
+		else if (shape.equals("TVTShape")) {
 			tvShape = new TVTShape(gc);
 		}
 		else {
