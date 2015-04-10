@@ -15,6 +15,8 @@ public class TVPlayState extends TVGameState implements Observer {
 	TVShape currShape;
 	TVShapeFactory shapeFactory;
 	
+	int score = 0;
+	
 	public TVPlayState(TVInvoker i) {
 		super(i);
 		this.grid = new TVGrid();
@@ -25,6 +27,7 @@ public class TVPlayState extends TVGameState implements Observer {
 		this.currShape = shapeFactory.createShape("TVZShape");
 		currShape.addObserver(this);
 		grid.addShapetoTop(currShape);
+		score = 0;
 		//create factory and use factory to create cuurShape
 		// since shape is observable, shape.addObserver and pass this
 	} 
@@ -85,6 +88,8 @@ public class TVPlayState extends TVGameState implements Observer {
 	public void update(Observable o, Object arg) {
 		// ccast o to tvshape
 		// this update is for collision
+		
+		
 		
 		grid.isCollided((TVShape)o);
 		currShape = shapeFactory.getRandomShape();
