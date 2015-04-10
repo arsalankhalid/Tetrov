@@ -105,6 +105,12 @@ public abstract class TVShape extends Observable{
 		if(!fixGridLocation(oldArray)){
 			undoRotation(false);
 		}
+		
+		if(this.checkCollision(grid)){
+			undoRotation(false);
+			this.setChanged();
+			this.notifyObservers();
+		}
 		displayBlocks();
 	}
 	
@@ -146,6 +152,11 @@ public abstract class TVShape extends Observable{
 		if(!fixGridLocation(oldArray)){
 			undoRotation(true);
 		}
+		if(this.checkCollision(grid)){
+			undoRotation(true);
+			this.setChanged();
+			this.notifyObservers();
+		}
 		displayBlocks();
 	}
 	
@@ -177,7 +188,23 @@ public abstract class TVShape extends Observable{
 		
 		gridLeftRow += 1;
 		gridRightRow += 1;
+		
+		if(this.checkCollision(grid)){
+			moveUp();
+			this.setChanged();
+			this.notifyObservers();
+		}
+		
+		
 		this.displayGridValues();
+	}
+	
+	public void moveUp(){
+		for(int i=0;i<4;i++){
+			for(int c = 0; c < 4; c++){
+				blocks[i][c].moveUp();
+			}
+		}
 	}
 	
 	// Moves the shape left one column
@@ -193,6 +220,13 @@ public abstract class TVShape extends Observable{
 		}
 		gridLeftCol -= 1;
 		gridRightCol -= 1;
+		
+		if(this.checkCollision(grid)){
+			moveRight(grid);
+			this.setChanged();
+			this.notifyObservers();
+		}
+		
 		this.displayGridValues();
 	}
 	
