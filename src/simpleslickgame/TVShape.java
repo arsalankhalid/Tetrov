@@ -243,6 +243,13 @@ public abstract class TVShape extends Observable{
 		}
 		gridLeftCol += 1;
 		gridRightCol += 1;
+		
+		if(this.checkCollision(grid)){
+			moveLeft(grid);
+			this.setChanged();
+			this.notifyObservers();
+		}
+
 		this.displayGridValues();
 	}
 	
