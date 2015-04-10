@@ -56,6 +56,8 @@ public class TVGrid{
 			for(int c = botRightCoord[1]; c >= botRightCoord[1] - 4; c--){
 				if(i >= 0 && j >= 0 && blocks[i][j] != null){
 					gameboard[r][c] = blocks[i][j];
+					blocks[i][j].row = r;
+					blocks[i][j].col = c;
 					currentShape.add(new Integer[]{r, c});
 					System.out.println("i: " + i + " j: " + j);
 				}
@@ -110,6 +112,8 @@ public class TVGrid{
 			for(int c = botRightCoord[1]; c >= botRightCoord[1] - 4; c--){
 				if(i >= 0 && j >= 0 && blocks[i][j] != null){
 					gameboard[r][c] = blocks[i][j];
+					blocks[i][j].row = r;
+					blocks[i][j].col = c;
 					currentShape.add(new Integer[]{r, c});
 					System.out.println("i: " + i + " j: " + j);
 				}

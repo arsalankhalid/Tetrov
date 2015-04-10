@@ -12,6 +12,8 @@ public class TVBlock extends Rectangle{
 	Graphics graphics;
 	GameContainer gc;
 	Color colour;
+	int row = 0;
+	int col = 0;
 	
 	public TVBlock(GameContainer gc, Color colour) {
 		super(0, 0, 50, 50);
@@ -46,7 +48,11 @@ public class TVBlock extends Rectangle{
 		for(int row = 0; row < grid.length; row++){
 			for(int col = 0; col < grid[row].length; col++){
 				if(grid[row][col] != null && grid[row][col].intersects(this)){
-					return true;
+					if((row -1 == this.row && col -1 == this.col) || (row -1 == this.row && col +1 == this.col)){
+						
+					}
+					else
+						return true;
 				}
 			}
 		}

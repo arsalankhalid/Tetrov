@@ -185,18 +185,15 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		
+		gridLeftRow += 1;
+		gridRightRow += 1;
+		
 		if(this.checkCollision(grid)){
 			//moveUp();
 			this.setChanged();
 			this.notifyObservers();
 		}
-		
-		gridLeftRow += 1;
-		gridRightRow += 1;
-		
-
-		
-		
+	
 		this.displayGridValues();
 	}
 	
@@ -207,6 +204,8 @@ public abstract class TVShape extends Observable{
 					blocks[i][c].moveUp();
 			}
 		}
+		gridLeftRow -= 1;
+		gridRightRow -= 1;
 	}
 	
 	// Moves the shape left one column
@@ -221,15 +220,15 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		
+		
+		gridLeftCol -= 1;
+		gridRightCol -= 1;
+		
 		if(this.checkCollision(grid)){
 			//moveRight(grid);
 			this.setChanged();
 			this.notifyObservers();
 		}
-		
-		gridLeftCol -= 1;
-		gridRightCol -= 1;
-		
 
 		
 		this.displayGridValues();
@@ -247,15 +246,16 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		
+
+		
+		gridLeftCol += 1;
+		gridRightCol += 1;
+		
 		if(this.checkCollision(grid)){
 			//moveLeft(grid);
 			this.setChanged();
 			this.notifyObservers();
 		}
-		
-		gridLeftCol += 1;
-		gridRightCol += 1;
-		
 
 		this.displayGridValues();
 	}
@@ -268,13 +268,14 @@ public abstract class TVShape extends Observable{
 	// Checks if any block collides with the grid
 	public boolean checkCollision(TVBlock[][] grid){
 		// For each block, check if it intersects with a block on the grid
-		if(gridLeftRow == 20)
+		if(gridLeftRow == 21 || gridRightRow == 21)
 			return true;
 		
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
 				if(blocks[row][col] != null && blocks[row][col].checkCollision(grid)){
 					//Notifying the observer goes here
+					
 					return true;
 				}
 			}
