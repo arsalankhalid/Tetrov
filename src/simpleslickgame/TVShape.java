@@ -107,7 +107,7 @@ public abstract class TVShape extends Observable{
 		}
 		
 		if(this.checkCollision(grid)){
-			//undoRotation(false);
+			undoRotation(false);
 			this.setChanged();
 			this.notifyObservers();
 		}
@@ -153,7 +153,7 @@ public abstract class TVShape extends Observable{
 			undoRotation(true);
 		}
 		if(this.checkCollision(grid)){
-			//undoRotation(true);
+			undoRotation(true);
 			this.setChanged();
 			this.notifyObservers();
 		}
@@ -182,16 +182,14 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		
-		gridLeftRow += 1;
-		gridRightRow += 1;
-		
 		if(this.checkCollision(grid)){
-			//moveUp();ad
+			moveUp();
 			this.setChanged();
 			this.notifyObservers();
 		}
 	
-
+		gridLeftRow += 1;
+		gridRightRow += 1;
 		
 		
 		this.displayGridValues();
