@@ -146,8 +146,9 @@ public class TVGrid{
 	}
 	
 	public int isCollided(TVShape shape){
-		TVShape cloneShape = shape;
+		TVShape cloneShape = shape.copyShape();
 		newshapes.add(cloneShape);
+		this.updateCurrentShape(cloneShape);
 		return checkGameboard();
 	}
 	
