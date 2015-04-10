@@ -73,6 +73,14 @@ public class TVBlock extends Rectangle{
 		this.setX(this.getX() - this.getWidth());
 	}
 	
+	public TVBlock getCopy(){
+		TVBlock tempBlock = new TVBlock(gc, colour);
+		
+		tempBlock.setX(this.getX());
+		tempBlock.setY(this.getY());
+		
+		return tempBlock;
+	}
 	
 	
 	
