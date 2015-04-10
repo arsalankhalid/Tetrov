@@ -134,12 +134,14 @@ public class TVGrid{
 	
 	public void moveRowDown(int row){
 		
-		for(int r = row; r >= 0 ; r--)
+		for(int r = row-1; r >= 0 ; r--)
 		{
-			for(int c = 10 ; c >= 0; c--)
+			for(int c = 9 ; c >= 0; c--)
 			{
 				gameboard[r+1][c] = gameboard[r][c];
-				gameboard[r+1][c].moveDown();
+				if(gameboard[r+1][c] != null){
+					gameboard[r+1][c].moveDown();
+				}
 			}
 		}
 		
