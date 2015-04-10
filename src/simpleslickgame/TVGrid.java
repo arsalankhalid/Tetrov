@@ -18,7 +18,7 @@ public class TVGrid{
 		newshapes = new ArrayList<TVShape>();
 	}
 	
-	public void addShapetoTop(TVShape shape){
+	public synchronized void addShapetoTop(TVShape shape){
 
 		int[] botRightBlock = shape.findBottomRight(shape.blocks);
 		
@@ -71,7 +71,7 @@ public class TVGrid{
 
 	}
 	
-	public void updateCurrentShape(TVShape shape){
+	public synchronized void updateCurrentShape(TVShape shape){
 		for(Iterator<Integer[]> it = currentShape.iterator(); it.hasNext();){
 			Integer[] cur = it.next();
 			gameboard[cur[0]][cur[1]] = null;
@@ -128,11 +128,11 @@ public class TVGrid{
 		
 	}
 	
-	public void removeBlock(int row, int col){
+	public synchronized void removeBlock(int row, int col){
 		gameboard[row][col] = null;
 	}
 	
-	public void moveRowDown(int row){
+	public synchronized void moveRowDown(int row){
 		
 		for(int r = row-1; r >= 0 ; r--)
 		{
@@ -147,18 +147,18 @@ public class TVGrid{
 		
 	}
 	
-	public void moveBlockDown(TVBlock block){
+	public synchronized void moveBlockDown(TVBlock block){
 		block.moveDown();
 	}
 	
-	public int isCollided(TVShape shape){
+	public synchronized int isCollided(TVShape shape){
 		TVShape cloneShape = shape.copyShape();
 		newshapes.add(cloneShape);
 		this.updateCurrentShape(cloneShape);
 		return checkGameboard();
 	}
 	
-	public void drawBlocks(){
+	public synchronized void drawBlocks(){
 		for(int i =0; i < 22; i ++)
 		{
 			for(int j = 0; j < 10; j++)
@@ -172,7 +172,7 @@ public class TVGrid{
 		
 	}
 	
-	public TVBlock[][] collisionCandidate()
+	public synchronized TVBlock[][] collisionCandidate()
 	{
 		TVBlock[][] GameboardTemp = gameboard.clone();
 		
@@ -183,7 +183,7 @@ public class TVGrid{
 		return GameboardTemp;
 	}
 	
-	public int checkGameboard()
+	public synchronized int checkGameboard()
 	{
 		int counter = 0;
 		int totalRowsRemoved = 0;
@@ -210,7 +210,7 @@ public class TVGrid{
 		return totalRowsRemoved;
 	}
 	
-	public void displayBlock()
+	public synchronized void displayBlock()
 	{
 		boolean display = true;
 		if(display){
