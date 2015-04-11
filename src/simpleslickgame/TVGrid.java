@@ -147,14 +147,17 @@ public class TVGrid{
 	
 	public synchronized void moveBlockDown(TVBlock block){
 		block.moveDown();
+		
 	}
 	
-	public synchronized int isCollided(TVShape shape){
+	public synchronized TVCollisionInfo isCollided(TVShape shape){
 		TVShape cloneShape = shape.copyShape();
 		newshapes.add(cloneShape);
 		this.updateCurrentShape(cloneShape);
 		if(currentShape.get(3)[0] == 1){
-			return -1;
+			TVCollisionInfo lostCollisionInfo = new TVCollisionInfo();
+			lostCollisionInfo.lost = true;
+			return lostCollisionInfo;
 		}
 		return checkGameboard();
 	}
@@ -184,10 +187,11 @@ public class TVGrid{
 		return GameboardTemp;
 	}
 	
-	public synchronized int checkGameboard()
+	public synchronized TVCollisionInfo checkGameboard()
 	{
 		int counter = 0;
-		int totalRowsRemoved = 0;
+		TVCollisionInfo totalRowsRemoved = new TVCollisionInfo();
+		totalRowsRemoved.collisionRawInfoArr = new ArrayList<Integer>();
 		for(int i = 0; i < 22;i++)
 		{
 			for(int j =0;j<10;j++)
@@ -201,10 +205,12 @@ public class TVGrid{
 			{
 				for(int t =0 ; t<10;t++)
 				{
+					
 					gameboard[i][t] = null;
+					
 				}
+				totalRowsRemoved.collisionRawInfoArr.add(Integer.valueOf(i));
 				moveRowDown(i);
-				totalRowsRemoved++;
 				i = 0;
 			}
 			counter = 0;

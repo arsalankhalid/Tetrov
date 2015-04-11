@@ -1,11 +1,19 @@
 package simpleslickgame;
 
+import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import org.lwjgl.Sys;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.particles.ConfigurableEmitter;
+import org.newdawn.slick.particles.ParticleIO;
+import org.newdawn.slick.particles.ParticleSystem;
 
 import simpleslickgame.TVTick;
 public class TVPlayState extends TVGameState implements Observer { 
@@ -18,8 +26,25 @@ public class TVPlayState extends TVGameState implements Observer {
 	Graphics graphics;
 	Color colour;
 	
+	ArrayList<ConfigurableEmitter> currEmitter;
+	
 	int score = 0;
 	int level = 0;
+	
+	private ConfigurableEmitter smallExplosionEmitter; // initial explosion - will be duplicated and placed as needed
+	private ParticleSystem effectSystem; // stores all particle effects
+	
+	Toolkit toolkit;
+	Timer timer;
+	
+	class RemindTask extends TimerTask {
+	    public void run() {
+	      System.out.println("Time's up!");
+	      if(currEmitter != null){
+	    	  removeEmitter();
+	      }  
+	    }
+	  }
 	
 	public TVPlayState(TVInvoker i, TVGrid grid) {
 		super(i);
@@ -32,10 +57,46 @@ public class TVPlayState extends TVGameState implements Observer {
 		grid.addShapetoTop(currShape);
 		score = 0;
 		this.graphics= gc.getGraphics();
-		
-		//create factory and use factory to create cuurShape
-		// since shape is observable, shape.addObserver and pass this
+		initParticles();
+		currEmitter = new ArrayList<ConfigurableEmitter>();
 	} 
+	
+	void initParticles(){
+		 try {   
+	         effectSystem = ParticleIO.loadConfiguredSystem("/src/resources/resources.xml");
+	         effectSystem.getEmitter(0).setEnabled(false); // disable the initial emitter
+	         effectSystem.setRemoveCompletedEmitters(true); // remove emitters once they finish
+	         smallExplosionEmitter = (ConfigurableEmitter)effectSystem.getEmitter(0);
+	         smallExplosionEmitter.setEnabled(false);
+	      }
+	      catch(Exception e) {
+	         Sys.alert("Error", "Error adding explosion\nCheck for explosion.xml");
+	         System.exit(0);
+	      }
+
+	}
+	
+	public void addExplosion(float x, float y) {
+	       ConfigurableEmitter e = smallExplosionEmitter.duplicate(); // copy initial emitter
+	       e.setEnabled(true); // enable
+	       e.setPosition(x, y);
+	       currEmitter.add(e);
+	       effectSystem.addEmitter(e); // add to particle system for rendering and updating
+	       toolkit = Toolkit.getDefaultToolkit();
+		   timer = new Timer();
+		   int seconds = 2;
+		   timer.schedule(new RemindTask(), seconds * 1000);
+	       
+   }
+	
+	public void removeEmitter() {
+		for ( ConfigurableEmitter ce : currEmitter) {
+			effectSystem.removeEmitter(ce);
+		}
+		
+		currEmitter = null;
+		currEmitter = new ArrayList<ConfigurableEmitter>();
+	}
 
 	@Override
 	void pressLeft() {
@@ -77,6 +138,7 @@ public class TVPlayState extends TVGameState implements Observer {
 		currShape.drawShape();
 		grid.drawBlocks();
 		manageScoreAndLevel();
+		effectSystem.render();
 		
 	}
 	
@@ -97,6 +159,7 @@ public class TVPlayState extends TVGameState implements Observer {
 	@Override
 	void updateGameboard(int i) { 
 		// called every single frame
+		effectSystem.update(i);
 		if(tick.update(i)){
 			// do logic that needs to happen
 			currShape.moveDown(grid.collisionCandidate());
@@ -106,21 +169,40 @@ public class TVPlayState extends TVGameState implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-
-		int num = grid.isCollided((TVShape)o);
 		
-		if(num == -1){
-			invoker.setGameState(invoker.getLostState());
-		}
-		
-		if(num > 0){ 
-			score += num * 10;
-			if(score%10 == 0) {
-				if(level == 9){
-					// set state to win or something, cuz initially speed set to 1000ms, then get overflow if over
+		TVCollisionInfo collInfo = grid.isCollided((TVShape)o);
+		if(collInfo.collisionRawInfoArr!=null) {
+			if(collInfo.lost == true){
+				invoker.setGameState(invoker.getLostState());
+			}
+			
+			if(collInfo.collisionRawInfoArr.size() > 0){ 
+				
+				score += collInfo.collisionRawInfoArr.size() * 10;
+				
+				for (Integer raw : collInfo.collisionRawInfoArr) {
+					addExplosion(28,(raw*30));
+					addExplosion(56,(raw*30));
+					addExplosion(84,(raw*30));
+					addExplosion(112,(raw*30));
+					addExplosion(130,(raw*30));
+					addExplosion(158,(raw*30));
+					addExplosion(186,(raw*30));
+					addExplosion(216,(raw*30));
+					addExplosion(240,(raw*30));
+					addExplosion(260,(raw*30));
 				}
-				tick.tick -= 100;
-				level++;
+				//int j = collInfo.collisionRawInfoArr.get(0);
+				//addExplosion(5,(j*30));
+				//addExplosion(),(j*30));
+				
+				if(score%10 == 0) {
+					if(level == 9){
+						// set state to win or something, cuz initially speed set to 1000ms, then get overflow if over
+					}
+					tick.tick -= 100;
+					level++;
+				}
 			}
 		}
 		
