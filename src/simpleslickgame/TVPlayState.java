@@ -38,7 +38,8 @@ public class TVPlayState extends TVGameState implements Observer {
 	Timer timer;
 	
 	class RemindTask extends TimerTask {
-	    public void run() {
+	    @Override
+		public void run() {
 	      System.out.println("Time's up!");
 	      if(currEmitter != null){
 	    	  removeEmitter();

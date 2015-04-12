@@ -1,8 +1,6 @@
 package simpleslickgame;
 import java.util.Observable;
 
-import org.newdawn.slick.Graphics;
-
 public abstract class TVGameState {
 
 	TVInvoker invoker;
