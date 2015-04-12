@@ -356,7 +356,6 @@ public abstract class TVShape extends Observable{
 		int[] leftDifference = findLeftDifference(oldblocks);
 		int[] rightDifference = findRightDifference(oldblocks);
 		
-		
 		this.displayGridValues();
 		
 		if(gridLeftRow + leftDifference[0] > 21 || gridLeftCol + leftDifference[1] > 9 || gridLeftCol + leftDifference[1] < 0){

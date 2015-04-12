@@ -12,8 +12,6 @@ public class TVBlock extends Rectangle{
 	Graphics graphics;
 	GameContainer gc;
 	Color colour;
-	int row = 0;
-	int col = 0;
 	
 	public TVBlock(GameContainer gc, Color colour) {
 		super(0, 0, 50, 50);
