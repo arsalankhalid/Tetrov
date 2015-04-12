@@ -73,7 +73,6 @@ public class TVInvoker extends BasicGame
 		currentState.updateGameboard(i);
 	}
 
-	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		currentState.renderGameboard();

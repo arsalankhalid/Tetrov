@@ -37,7 +37,6 @@ public class TVPlayState extends TVGameState implements Observer {
 	Toolkit toolkit;
 	Timer timer;
 	
-<<<<<<< HEAD
 	class RemindTask extends TimerTask {
 	    @Override
 		public void run() {
@@ -48,8 +47,6 @@ public class TVPlayState extends TVGameState implements Observer {
 	    }
 	  }
 	
-=======
->>>>>>> 0e3cdd9809ae130115e86b5f899088096a488dd1
 	public TVPlayState(TVInvoker i, TVGrid grid) {
 		super(i);
 		this.grid = grid;
@@ -64,15 +61,6 @@ public class TVPlayState extends TVGameState implements Observer {
 		initParticles();
 		currEmitter = new ArrayList<ConfigurableEmitter>();
 	} 
-	
-	class RemindTask extends TimerTask {
-	    public void run() {
-	      System.out.println("Time's up!");
-	      if(currEmitter != null){
-	    	  removeEmitter();
-	      }  
-	    }
-	}
 	
 	void initParticles(){
 		 try {   
