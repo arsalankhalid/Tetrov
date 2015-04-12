@@ -3,13 +3,18 @@ package simpleslickgame;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+
 public class TVLostState extends TVGameState implements Observer { 
 	
 	TVGrid grid;
+	Graphics graphics;
 	
 	public TVLostState(TVInvoker i, TVGrid grid) {
 		super(i);
 		this.grid = grid;
+		graphics = i.gc.getGraphics();
 	} 
 
 	@Override
@@ -45,6 +50,8 @@ public class TVLostState extends TVGameState implements Observer {
 	@Override
 	void renderGameboard() {
 		grid.drawBlocks();
+		graphics.setColor(Color.red);
+		graphics.drawString("YOU R LOSER", 105, 320);
 	}
 
 	@Override

@@ -37,6 +37,7 @@ public class TVPlayState extends TVGameState implements Observer {
 	Toolkit toolkit;
 	Timer timer;
 	
+<<<<<<< HEAD
 	class RemindTask extends TimerTask {
 	    @Override
 		public void run() {
@@ -47,6 +48,8 @@ public class TVPlayState extends TVGameState implements Observer {
 	    }
 	  }
 	
+=======
+>>>>>>> 0e3cdd9809ae130115e86b5f899088096a488dd1
 	public TVPlayState(TVInvoker i, TVGrid grid) {
 		super(i);
 		this.grid = grid;
@@ -62,6 +65,15 @@ public class TVPlayState extends TVGameState implements Observer {
 		currEmitter = new ArrayList<ConfigurableEmitter>();
 	} 
 	
+	class RemindTask extends TimerTask {
+	    public void run() {
+	      System.out.println("Time's up!");
+	      if(currEmitter != null){
+	    	  removeEmitter();
+	      }  
+	    }
+	}
+	
 	void initParticles(){
 		 try {   
 	         effectSystem = ParticleIO.loadConfiguredSystem("/src/resources/resources.xml");
@@ -74,20 +86,18 @@ public class TVPlayState extends TVGameState implements Observer {
 	         Sys.alert("Error", "Error adding explosion\nCheck for explosion.xml");
 	         System.exit(0);
 	      }
-
 	}
 	
 	public void addExplosion(float x, float y) {
-	       ConfigurableEmitter e = smallExplosionEmitter.duplicate(); // copy initial emitter
-	       e.setEnabled(true); // enable
-	       e.setPosition(x, y);
-	       currEmitter.add(e);
-	       effectSystem.addEmitter(e); // add to particle system for rendering and updating
-	       toolkit = Toolkit.getDefaultToolkit();
-		   timer = new Timer();
-		   int seconds = 2;
-		   timer.schedule(new RemindTask(), seconds * 1000);
-	       
+       ConfigurableEmitter e = smallExplosionEmitter.duplicate(); // copy initial emitter
+       e.setEnabled(true); // enable
+       e.setPosition(x, y);
+       currEmitter.add(e);
+       effectSystem.addEmitter(e); // add to particle system for rendering and updating
+       toolkit = Toolkit.getDefaultToolkit();
+	   timer = new Timer();
+	   int seconds = 2;
+	   timer.schedule(new RemindTask(), seconds * 1000);    
    }
 	
 	public void removeEmitter() {
@@ -130,7 +140,7 @@ public class TVPlayState extends TVGameState implements Observer {
 		currShape.rotateRight(grid.collisionCandidate());
 		grid.updateCurrentShape(currShape);
 	}
-
+	
 	@Override
 	void pressPause() {
 		invoker.setGameState(invoker.getPauseState());
@@ -142,7 +152,6 @@ public class TVPlayState extends TVGameState implements Observer {
 		grid.drawBlocks();
 		manageScoreAndLevel();
 		effectSystem.render();
-		
 	}
 	
 	void manageScoreAndLevel() {
@@ -174,35 +183,33 @@ public class TVPlayState extends TVGameState implements Observer {
 	public synchronized void update(Observable o, Object arg) {
 		
 		TVCollisionInfo collInfo = grid.isCollided((TVShape)o);
-		if(collInfo.collisionRawInfoArr!=null) {
+		if(collInfo != null) {
 			if(collInfo.lost == true){
 				invoker.setGameState(invoker.getLostState());
 			}
-			
-			if(collInfo.collisionRawInfoArr.size() > 0){ 
-				
-				score += collInfo.collisionRawInfoArr.size() * 10;
-				
-				for (Integer raw : collInfo.collisionRawInfoArr) {
-					addExplosion(28,(raw*30));
-					addExplosion(56,(raw*30));
-					addExplosion(84,(raw*30));
-					addExplosion(112,(raw*30));
-					addExplosion(130,(raw*30));
-					addExplosion(158,(raw*30));
-					addExplosion(186,(raw*30));
-					addExplosion(216,(raw*30));
-					addExplosion(240,(raw*30));
-					addExplosion(260,(raw*30));
-				}
-				//int j = collInfo.collisionRawInfoArr.get(0);
-				//addExplosion(5,(j*30));
-				//addExplosion(),(j*30));
-				
-				if(score%10 == 0) {
-					level++;
-					if(level%10 == 0) {
-						tick.tick -= 100;
+			if (collInfo.collisionRawInfoArr!=null) {
+				if(collInfo.collisionRawInfoArr.size() > 0){ 
+					
+					score += collInfo.collisionRawInfoArr.size() * 10;
+					
+					for (Integer raw : collInfo.collisionRawInfoArr) {
+						addExplosion(28,(raw*30));
+						addExplosion(56,(raw*30));
+						addExplosion(84,(raw*30));
+						addExplosion(112,(raw*30));
+						addExplosion(130,(raw*30));
+						addExplosion(158,(raw*30));
+						addExplosion(186,(raw*30));
+						addExplosion(216,(raw*30));
+						addExplosion(240,(raw*30));
+						addExplosion(260,(raw*30));
+					}
+					
+					if(score%10 == 0) {
+						level++;
+						if(level%10 == 0) {
+							tick.tick -= 100;
+						}
 					}
 				}
 			}

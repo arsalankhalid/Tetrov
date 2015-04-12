@@ -3,14 +3,19 @@ package simpleslickgame;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+
 public class TVPauseState extends TVGameState implements Observer { 
 	
 	TVGrid grid;
+	Graphics graphics;
 	
 	public TVPauseState(TVInvoker i, TVGrid grid) {
 		super(i);
 		this.grid = grid;
-		
+		graphics = i.gc.getGraphics();
 	} 
 
 	@Override
@@ -46,7 +51,8 @@ public class TVPauseState extends TVGameState implements Observer {
 	@Override
 	void renderGameboard() {
 		grid.drawBlocks();
-		
+		graphics.setColor(Color.white);
+		graphics.drawString("PAUSED", 115, 320);
 	}
 
 	@Override
