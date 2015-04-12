@@ -168,7 +168,7 @@ public class TVPlayState extends TVGameState implements Observer {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public synchronized void update(Observable o, Object arg) {
 		
 		TVCollisionInfo collInfo = grid.isCollided((TVShape)o);
 		if(collInfo.collisionRawInfoArr!=null) {

@@ -74,6 +74,7 @@ public class TVGrid{
 			Integer[] cur = it.next();
 			gameboard[cur[0]][cur[1]] = null;
 		}
+		currentShape.clear();
 		
 		int[] botRightBlock = shape.findBottomRight(shape.blocks);
 		
@@ -105,7 +106,7 @@ public class TVGrid{
 		int i = botRightBlock[0];
 		int j = botRightBlock[1];
 	
-		currentShape.clear();
+		
 		for(int r = botRightCoord[0]; r >= botRightCoord[0] - 4; r--){
 			for(int c = botRightCoord[1]; c >= botRightCoord[1] - 4; c--){
 				if(i >= 0 && j >= 0 && blocks[i][j] != null){

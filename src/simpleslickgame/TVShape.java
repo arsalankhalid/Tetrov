@@ -16,6 +16,14 @@ public abstract class TVShape extends Observable{
 	protected int gridLeftCol;
 	protected int gridRightRow;
 	protected int gridRightCol;
+
+	// 0 == normal direction
+	// 1 == rotated right
+	// 2 = upside down
+	// 3 = rotated left
+	
+	protected int direction;
+
 	
 	public TVShape(GameContainer gc, int[][] blocks, Color colour){
 		// Set necessary fields
@@ -64,6 +72,8 @@ public abstract class TVShape extends Observable{
 		
 		gridRightRow = bottomRight[0];
 		gridRightCol = 4 + bottomRight[1];
+		
+		direction = 0;
 
 	}
 	
@@ -103,7 +113,16 @@ public abstract class TVShape extends Observable{
 		TVBlock[][] oldArray = blocks.clone();
 		blocks = newArray;
 		
-		if(!fixGridLocation(oldArray)){
+		int newDirection = direction;
+		
+		if(newDirection == 0){
+			newDirection = 3;
+		}
+		else{
+			 newDirection--;
+		}
+		
+		if(!fixGridLocation(oldArray, newDirection)){
 			undoRotation(false);
 		}
 		
@@ -112,6 +131,11 @@ public abstract class TVShape extends Observable{
 			this.setChanged();
 			this.notifyObservers();
 		}
+		
+
+		direction = newDirection;
+		
+		System.out.println("Direction is:" + direction);
 		displayBlocks();
 	}
 	
@@ -150,7 +174,16 @@ public abstract class TVShape extends Observable{
 		}
 		TVBlock[][] oldArray = blocks.clone();
 		blocks = newArray;
-		if(!fixGridLocation(oldArray)){
+		
+		int newDirection = direction;
+		if(newDirection == 3){
+			newDirection = 0;
+		}else{
+			newDirection++;
+		}
+		
+		
+		if(!fixGridLocation(oldArray, newDirection)){
 			undoRotation(true);
 		}
 		if(this.checkCollision(grid)){
@@ -158,6 +191,10 @@ public abstract class TVShape extends Observable{
 			this.setChanged();
 			this.notifyObservers();
 		}
+		
+		direction = newDirection;
+		
+		System.out.println("Direction is:" + direction);
 		displayBlocks();
 	}
 	
@@ -172,18 +209,17 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		
+		gridLeftRow += 1;
+		gridRightRow += 1;
+		
 		if(this.checkCollision(grid)){
 			moveUp();
+			gridLeftRow -= 1;
+			gridRightRow -= 1;
 			this.setChanged();
 			this.notifyObservers();
 		}
-		else{
-			gridLeftRow += 1;
-			gridRightRow += 1;
-		}
 	
-
-		
 		this.displayGridValues();
 	}
 	
@@ -199,16 +235,15 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		
+		gridLeftCol -= 1;
+		gridRightCol -= 1;
+		
 		if(this.checkCollision(grid)){
 			moveRight();
-		}
-		else{
-			gridLeftCol -= 1;
-			gridRightCol -= 1;
+			gridLeftCol += 1;
+			gridRightCol += 1;
 		}
 
-
-		
 		this.displayGridValues();
 	}
 	
@@ -224,16 +259,14 @@ public abstract class TVShape extends Observable{
 			}
 		}
 		
+		gridLeftCol += 1;
+		gridRightCol += 1;
+		
 		if(this.checkCollision(grid)){
 			moveLeft();
+			gridLeftCol -= 1;
+			gridRightCol -= 1;
 		}
-		else{
-			gridLeftCol += 1;
-			gridRightCol += 1;
-		}
-		
-
-
 
 		this.displayGridValues();
 	}
@@ -241,8 +274,10 @@ public abstract class TVShape extends Observable{
 	// Checks if any block collides with the grid
 	public boolean checkCollision(TVBlock[][] grid){
 		// For each block, check if it intersects with a block on the grid
-		if(gridLeftRow == 21 || gridRightRow == 21)
+		
+		if(gridLeftRow == 22 || gridRightRow == 22){
 			return true;
+		}
 		
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
@@ -299,8 +334,9 @@ public abstract class TVShape extends Observable{
 		if(gridLeftRow > gridRightRow){
 			return new int[]{this.gridLeftRow, this.gridRightCol};
 		}
-		else
+		else{
 			return new int[]{this.gridRightRow, this.gridRightCol};
+		}
 	}
 	
 	// Draws the shape on the board
@@ -315,41 +351,13 @@ public abstract class TVShape extends Observable{
 	}
 	
 	// Fixes grid locations after rotating
-	private boolean fixGridLocation(TVBlock[][] oldblocks){
+	private boolean fixGridLocation(TVBlock[][] oldblocks, int newDirection){
 		
 		int[] leftDifference = findLeftDifference(oldblocks);
 		int[] rightDifference = findRightDifference(oldblocks);
 		
 		
 		this.displayGridValues();
-		
-		if(this.getClass().getSimpleName().equals("TVTShape")){
-			int blocksOnBotRow = 0;
-			int blocksOnMidRow = 0;
-			int botRow = 0;
-			for(int r = 3; r >= 0; r--){
-				for(int c = 3; c >= 0; c--){
-					if(blocks[r][c] != null){
-						blocksOnBotRow++;
-					}
-				}
-				if(blocksOnBotRow != 0){
-					botRow = r;
-					r = -1;
-				}
-			}
-			
-			for(int c = 0; c < 4; c++){
-				if(blocks[botRow-1][c] != null)
-					blocksOnMidRow++;
-			}
-			
-			
-			
-			if(blocksOnBotRow == 1 && blocksOnMidRow == 3){
-				gridRightRow+=1;
-			}
-		}
 		
 		if(gridLeftRow + leftDifference[0] > 21 || gridLeftCol + leftDifference[1] > 9 || gridLeftCol + leftDifference[1] < 0){
 			return false;
@@ -366,6 +374,16 @@ public abstract class TVShape extends Observable{
 		gridRightCol += rightDifference[1];
 		
 
+		if(this.getClass().getSimpleName().equals("TVTShape")){
+			if(newDirection == 2){
+				gridRightRow += 1;
+				gridLeftRow += 1;
+			}
+			if(direction == 2){
+				gridRightRow -= 1;
+				gridLeftRow -= 1;
+			}
+		}
 		
 		return true;
 	}
@@ -415,6 +433,8 @@ public abstract class TVShape extends Observable{
 		for(int c = 3; c >= 0; c--){
 			for(int r = 3; r >= 0 ; r--){
 				if(blocks[r][c] != null){
+					
+					//if(this.getClass().getSimpleName() == "TVTShape" && direction == 2)
 					return new int[]{r, c};
 				}
 			}
