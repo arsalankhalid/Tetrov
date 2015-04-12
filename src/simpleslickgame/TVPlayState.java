@@ -91,7 +91,9 @@ public class TVPlayState extends TVGameState implements Observer {
 	
 	public void removeEmitter() {
 		for ( ConfigurableEmitter ce : currEmitter) {
-			effectSystem.removeEmitter(ce);
+			if(ce != null){
+				effectSystem.removeEmitter(ce);
+			}
 		}
 		
 		currEmitter = null;
@@ -197,11 +199,10 @@ public class TVPlayState extends TVGameState implements Observer {
 				//addExplosion(),(j*30));
 				
 				if(score%10 == 0) {
-					if(level == 9){
-						// set state to win or something, cuz initially speed set to 1000ms, then get overflow if over
-					}
-					tick.tick -= 100;
 					level++;
+					if(level%10 == 0) {
+						tick.tick -= 100;
+					}
 				}
 			}
 		}
