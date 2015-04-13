@@ -1,3 +1,7 @@
 # Project Tetrov
-Still under development. 
-Tetris Game using awesome design patterns.
+To run:
+	- Extract zipped folder "Tetrov_Executable"
+	- Run Tetrov.bat
+Controls:
+	- WASD to move
+	- Left/Right arrows to rotate
