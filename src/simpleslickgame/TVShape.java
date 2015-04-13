@@ -291,6 +291,7 @@ public abstract class TVShape extends Observable{
 		return false;
 	}
 	
+	// Moves without collision
 	public void moveUp(){
 		for(int i=0;i<4;i++){
 			for(int c = 0; c < 4; c++){
@@ -300,6 +301,7 @@ public abstract class TVShape extends Observable{
 		}
 	}
 	
+	// Moves without collision
 	private void moveRight(){
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
@@ -310,6 +312,7 @@ public abstract class TVShape extends Observable{
 		}
 	}
 	
+	// Moves without collision
 	private void moveLeft(){
 		for(int row = 0; row < blocks.length; row++){
 			for(int col = 0; col < blocks[row].length; col++){
